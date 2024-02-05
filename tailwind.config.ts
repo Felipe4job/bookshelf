@@ -42,6 +42,7 @@ const config: Config = {
         gray: '#737373',
         grayLight: '#D4D4D4',
         grayExLight: '#F5F5F5',
+        gray50: '#FAFAFA',
         grayDark: '#404040',
         grayExDark: '#171717',
       },
