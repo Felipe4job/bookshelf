@@ -2,6 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { Input } from '../basic/inputs';
+import { LinkEst } from '../basic/link';
 
 export default function FormLogin () {
 
@@ -12,28 +13,37 @@ export default function FormLogin () {
   };
 
   return (
-    <form onSubmit={ handleSubmit(onSubmit) }>
+    <form className='w-full' onSubmit={ handleSubmit(onSubmit) }>
       <Input.default
+        style={{ fontFamily: 'Londrina Solid, sans-serif' }}
         id='emailUserLogin'
         name='user_email'
         title='Email ou Usuário'
-        placeholder='Digite seu email ou o usuário'
+        placeholder='EMAIL'
         type='text'
         rules={{ required: 'O campo é obrigatório' }}
         register={ register }
         errors={ errors }
       />
       <Input.default
+        style={{ fontFamily: 'Londrina Solid, sans-serif' }}
         id='passLogin'
         name='pass'
         title='Senha'
-        placeholder='Digite sua senha'
+        placeholder='SENHA'
         type='password'
-        eyePass={ true }
+        // eyePass={ true }
         rules={{ required: 'O campo é obrigatório' }}
         register={ register }
         errors={ errors }
       />
+      <div className='-mt-6 ml-4 font-light text-grayDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
+        <LinkEst
+          href='#'
+        >
+          Esqueceu sua senha?
+        </LinkEst>
+      </div>
     </form>
   );
 }

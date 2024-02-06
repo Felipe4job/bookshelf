@@ -48,7 +48,17 @@ const config: Config = {
       },
       fontFamily: {
         sans: [ 'Roboto', 'sans-serif' ],
-      }
+      },
+      screens: {
+        'tablet': '640px',
+        // => @media (min-width: 640px)
+        'laptop': '1024px',
+        // => @media (min-width: 1024px) 
+        'desktop': '1280px',
+        // => @media (min-width: 1280px)
+        'full': '1536px'
+        // => @media (min-width: 1536px)
+      },
     },
   },
   plugins: [],

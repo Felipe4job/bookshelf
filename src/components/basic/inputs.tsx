@@ -19,7 +19,8 @@ interface inputsInterface  {
   mask?: 'cpf' | 'cnpj',
   acceptable_file_types?: string,
   rows?:string,
-  defaultChecked?:boolean
+  defaultChecked?:boolean,
+  style?:any
 }
 
 export const Input = {
@@ -32,17 +33,18 @@ export const Input = {
 
     return (
       <>
-        <div className='mb-5'>
-          <label 
+        <div className='mb-8'>
+          {/* <label 
             htmlFor={params.id}
             className='mb-2 block text-sm font-medium' 
           >
             {params.title}
-          </label>
-          <input 
+          </label> */}
+          <input
+            style={params.style}
             type={isPasswordVisible ? 'text' : params.type}
             id={params.id}
-            className='block w-full rounded-lg border border-grayLight bg-gray50 p-2.5 text-sm focus:border-red focus:ring-secondaryDark'
+            className='block w-full rounded-lg bg-grayLight p-2.5 text-center text-2xl text-grayExDark focus:ring-secondaryDark'
             placeholder={params.placeholder}
             readOnly={params.readonly}
             value={params.value}
