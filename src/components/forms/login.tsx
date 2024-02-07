@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '../basic/inputs';
 import { LinkEst } from '../basic/link';
+import { ButtonEst } from '../basic/buttons';
 
 export default function FormLogin () {
 
@@ -37,12 +38,21 @@ export default function FormLogin () {
         register={ register }
         errors={ errors }
       />
-      <div className='-mt-6 ml-4 font-light text-grayDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
+      <div className='-mt-6 mb-4 ml-4 font-light text-grayDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
         <LinkEst
           href='#'
         >
           Esqueceu sua senha?
         </LinkEst>
+      </div>
+      <div className='flex w-full justify-center'>
+        <ButtonEst.smallRound
+          id='submitLogin'
+          type='submit'
+          bgColor='#404040'
+          textColor='white'
+          text='ENTRAR'
+        />
       </div>
     </form>
   );

@@ -1,15 +1,37 @@
 import FormLogin from '@/components/forms/login';
+import { FcGoogle } from 'react-icons/fc';
+import { BsApple } from 'react-icons/bs';
 
 export default function Login () {
   return (
     <>
-      <h2 
+      <p 
         className='my-10 text-5xl text-grayDark'
         style={{ fontFamily: 'Londrina Solid, sans-serif' }}
       >
         Bem vindo
-      </h2>
+      </p>
       <FormLogin />
+      <p 
+        className='my-4 text-xl font-light text-black opacity-65'
+        style={{ fontFamily: 'Londrina Solid, sans-serif' }}
+      >
+        OU
+      </p>
+      <div className='mb-4 flex w-full cursor-pointer items-center rounded-full bg-white py-2 pl-10 hover:scale-x-105'>
+        <FcGoogle size={35}/>
+        <p 
+          className='ml-8 text-sm text-black opacity-65'
+          style={{ fontFamily: 'Londrina Solid, sans-serif' }}
+        >Continuar com o Google</p>
+      </div>
+      <div className='flex w-full cursor-pointer items-center rounded-full bg-black py-2 pl-10 hover:scale-x-105'>
+        <BsApple size={35} color='white'/>
+        <p 
+          className='ml-8 text-sm text-white'
+          style={{ fontFamily: 'Londrina Solid, sans-serif' }}
+        >Continuar com o Apple</p>
+      </div>
     </>
   );
 }

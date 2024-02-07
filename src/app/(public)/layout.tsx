@@ -16,7 +16,7 @@ export default function LoginLayout ({ children: children } : { children: React.
       <body>
         <NextTopLoader color='#f6e05e' />
         <div className='flex h-screen w-screen flex-col items-center justify-center bg-white'>
-          <div className='flex h-screen w-screen flex-col items-center rounded bg-primaryExLight px-10 drop-shadow-md tablet:h-auto tablet:w-[430px]'>
+          <div className='flex h-screen w-screen flex-col items-center rounded bg-primaryExLight px-16 pb-10 drop-shadow-md tablet:h-auto tablet:w-[430px] tablet:px-10'>
             {children}
           </div>
         </div>
