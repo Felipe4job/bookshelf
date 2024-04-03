@@ -5,7 +5,21 @@ import { Input } from '../basic/inputs';
 import { LinkEst } from '../basic/link';
 import { ButtonEst } from '../basic/buttons';
 
-export default function FormLogin () {
+interface paramsFormPublic {
+  fields: fieldsParams[]  
+  submitType: 'login' | 'resetPass' | 'register'
+}
+
+interface fieldsParams {
+  id:string;
+  name:string;
+  title: 'Email' | 'Password';
+  placeholder:string;
+  type:string;
+  rules:object;
+}
+
+export default function FormPublic (params:paramsFormPublic) {
 
   const { handleSubmit, register, formState: { errors } } = useForm();
 
@@ -13,31 +27,26 @@ export default function FormLogin () {
     console.log(data);
   };
 
-  return (
+  return (    
     <form className='w-full' onSubmit={ handleSubmit(onSubmit) }>
-      <Input.default
-        style={{ fontFamily: 'Londrina Solid, sans-serif' }}
-        id='emailUserLogin'
-        name='user_email'
-        title='Email ou Usuário'
-        placeholder='EMAIL'
-        type='text'
-        rules={{ required: 'O campo é obrigatório' }}
-        register={ register }
-        errors={ errors }
-      />
-      <Input.default
-        style={{ fontFamily: 'Londrina Solid, sans-serif' }}
-        id='passLogin'
-        name='pass'
-        title='Senha'
-        placeholder='SENHA'
-        type='password'
-        // eyePass={ true }
-        rules={{ required: 'O campo é obrigatório' }}
-        register={ register }
-        errors={ errors }
-      />
+      {
+        params.fields.map((field)=>(
+          <div key={field.id}>
+            <Input.default
+              style={{ fontFamily: 'Londrina Solid, sans-serif' }}
+              id={field.id}
+              name={field.name}
+              title={field.title}
+              placeholder={field.placeholder}
+              type={field.type}
+              rules={field.rules}
+              register={ register }
+              errors={ errors }
+            />
+          </div>
+        ))
+      }
+
       <div className='-mt-6 mb-4 ml-4 font-light text-grayDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
         <LinkEst
           href='#'

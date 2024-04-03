@@ -2,14 +2,15 @@ import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 
-export default function Login () {
+
+export default function ResetPass () {
   return (
     <>
       <p 
         className='my-10 text-5xl text-grayDark'
         style={{ fontFamily: 'Londrina Solid, sans-serif' }}
       >
-        Bem vindo
+        Redefinir senha
       </p>
       <FormPublic
         fields={
