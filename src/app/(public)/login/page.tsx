@@ -1,8 +1,15 @@
+'use client';
+
 import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 
 export default function Login () {
+  const onSubmit = (data:any) => {
+    console.log(data);
+  };
+
+
   return (
     <>
       <p 
@@ -33,6 +40,7 @@ export default function Login () {
           ]
         }
         submitType='login'
+        submit={onSubmit}
       />
       <p 
         className='my-4 text-xl font-light text-black opacity-65'

@@ -1,7 +1,13 @@
+'use client';
+
 import FormPublic from '@/components/forms/formPublic';
 
 
 export default function ResetPass () {
+  const onSubmit = (data:any) => {
+    console.log(data);
+  };
+
   return (
     <>
       <p 
@@ -40,6 +46,7 @@ export default function ResetPass () {
           ]
         }
         submitType='resetPass'
+        submit={onSubmit}
       />
     </>
   );

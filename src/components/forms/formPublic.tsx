@@ -8,6 +8,7 @@ import { ButtonEst } from '../basic/buttons';
 interface paramsFormPublic {
   fields: fieldsParams[];  
   submitType: 'login' | 'resetPass' | 'register' | 'forgotPass';
+  submit: (data: any)=> void;
 }
 
 interface fieldsParams {
@@ -21,15 +22,10 @@ interface fieldsParams {
 
 export default function FormPublic (params: paramsFormPublic) {
 
-  const { handleSubmit, register, formState: { errors }, reset } = useForm();
-
-  const onSubmit = (data:any) => {
-    console.log(data);
-    reset();
-  };
+  const { handleSubmit, register, formState: { errors } } = useForm();
 
   return (    
-    <form className='w-full' onSubmit={ handleSubmit(onSubmit) }>
+    <form className='w-full' onSubmit={ handleSubmit(params.submit) }>
       {
         params.fields.map((field)=>(
           <div key={field.id}>
