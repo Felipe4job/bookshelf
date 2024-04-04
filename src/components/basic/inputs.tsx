@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { ErrorMessage } from '@hookform/error-message';
 import { useState } from 'react';
 import { FieldErrorsImpl } from 'react-hook-form';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
@@ -34,12 +35,6 @@ export const Input = {
     return (
       <>
         <div className='mb-8'>
-          {/* <label 
-            htmlFor={params.id}
-            className='mb-2 block text-sm font-medium' 
-          >
-            {params.title}
-          </label> */}
           <input
             style={params.style}
             type={isPasswordVisible ? 'text' : params.type}
@@ -49,6 +44,11 @@ export const Input = {
             readOnly={params.readonly}
             value={params.value}
             {...params.register(params.name, params.rules)}
+          />
+          <ErrorMessage
+            errors={params.errors}
+            name={params.name}
+            render={({ message })=> <p className='pl-4 text-xs italic text-redLight'>{ message }</p> }
           />
         </div>
         {

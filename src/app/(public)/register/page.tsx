@@ -2,20 +2,39 @@ import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 
-export default function Login () {
+
+export default function Register () {
   return (
     <>
       <p 
         className='my-10 text-5xl text-grayDark'
         style={{ fontFamily: 'Londrina Solid, sans-serif' }}
       >
-        Bem vindo
+        Registre-se
       </p>
       <FormPublic
         fields={
           [ 
             {
-              id: 'emailUserLogin',
+              id: 'nameRegister',
+              name: 'name',
+              title: 'Name',
+              placeholder: 'SEU NOME',
+              rules: { 
+                required: 'O campo NOME é obrigatório',
+                minLength: {
+                  value: 3, 
+                  message: 'O campo precisa ter no mínimo 3 caracteres.'
+                }, 
+                maxLength: {
+                  value: 50, 
+                  message: 'O campo precisa ter no máximo 50 caracteres.'
+                } 
+              },
+              type: 'text'
+            },
+            {
+              id: 'emailRegister',
               name: 'email',
               title: 'Email',
               placeholder: 'EMAIL',
@@ -23,16 +42,32 @@ export default function Login () {
               type: 'email'
             },
             {
-              id: 'passLogin',
+              id: 'repeatEmailRegister',
+              name: 'repeatEmail',
+              title: 'Email',
+              placeholder: 'CONFIRMAR EMAIL',
+              rules: { required: 'O campo CONFIRMAR EMAIL é obrigatório' },
+              type: 'email'
+            },
+            {
+              id: 'passRegister',
               name: 'pass',
               title: 'Password',
-              placeholder: 'SENHA',
-              rules: { required: 'O campo SENHA é obrigatório' },
+              placeholder: 'CRIAR SENHA',
+              rules: { required: 'O campo CRIAR SENHA é obrigatório' },
               type: 'password'
-            } 
+            },
+            {
+              id: 'repeatPassRegister',
+              name: 'repeatPass',
+              title: 'Password',
+              placeholder: 'CONFIRMAR SENHA',
+              rules: { required: 'O campo CONFIRMAR SENHA é obrigatório' },
+              type: 'password'
+            }
           ]
         }
-        submitType='login'
+        submitType='register'
       />
       <p 
         className='my-4 text-xl font-light text-black opacity-65'

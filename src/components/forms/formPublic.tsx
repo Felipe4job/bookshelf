@@ -6,25 +6,26 @@ import { LinkEst } from '../basic/link';
 import { ButtonEst } from '../basic/buttons';
 
 interface paramsFormPublic {
-  fields: fieldsParams[]  
-  submitType: 'login' | 'resetPass' | 'register'
+  fields: fieldsParams[];  
+  submitType: 'login' | 'resetPass' | 'register' | 'forgotPass';
 }
 
 interface fieldsParams {
-  id:string;
-  name:string;
-  title: 'Email' | 'Password';
-  placeholder:string;
-  type:string;
-  rules:object;
+  id: string;
+  name: string;
+  title: 'Email' | 'Password' | 'Name';
+  placeholder: string;
+  type: string;
+  rules: object;
 }
 
-export default function FormPublic (params:paramsFormPublic) {
+export default function FormPublic (params: paramsFormPublic) {
 
-  const { handleSubmit, register, formState: { errors } } = useForm();
+  const { handleSubmit, register, formState: { errors }, reset } = useForm();
 
   const onSubmit = (data:any) => {
     console.log(data);
+    reset();
   };
 
   return (    
@@ -46,21 +47,30 @@ export default function FormPublic (params:paramsFormPublic) {
           </div>
         ))
       }
-
-      <div className='-mt-6 mb-4 ml-4 font-light text-grayDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
+      <div className='-mt-6 mb-4 ml-4 font-light text-grayDark hover:scale-y-105 hover:text-secondaryDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
         <LinkEst
-          href='#'
+          href={ params.submitType === 'login' ? '/forgotpass' : '/login' }
         >
-          Esqueceu sua senha?
+          { params.submitType === 'login' ? 'Esqueceu sua senha?' : 'Voltar para o login.' }          
         </LinkEst>
       </div>
+      {
+        ![ 'register', 'resetPass' ].includes(params.submitType)  &&
+        <div className=' my-4 ml-4 font-light text-grayDark hover:scale-y-105 hover:text-secondaryDark' style={{ fontFamily: 'Londrina Solid, sans-serif' }}>
+          <LinkEst
+            href='/register'
+          >
+            Registre-se          
+          </LinkEst>
+        </div>
+      }
       <div className='flex w-full justify-center'>
         <ButtonEst.smallRound
           id='submitLogin'
           type='submit'
           bgColor='#404040'
           textColor='white'
-          text='ENTRAR'
+          text={ params.submitType === 'login' ? 'ENTRAR' : 'ENVIAR' }
         />
       </div>
     </form>

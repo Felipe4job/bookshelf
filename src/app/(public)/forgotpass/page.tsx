@@ -2,14 +2,15 @@ import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 
-export default function Login () {
+
+export default function ForgotPass () {
   return (
     <>
       <p 
         className='my-10 text-5xl text-grayDark'
         style={{ fontFamily: 'Londrina Solid, sans-serif' }}
       >
-        Bem vindo
+        Redefinir senha
       </p>
       <FormPublic
         fields={
@@ -21,18 +22,10 @@ export default function Login () {
               placeholder: 'EMAIL',
               rules: { required: 'O campo EMAIL é obrigatório' },
               type: 'email'
-            },
-            {
-              id: 'passLogin',
-              name: 'pass',
-              title: 'Password',
-              placeholder: 'SENHA',
-              rules: { required: 'O campo SENHA é obrigatório' },
-              type: 'password'
-            } 
+            }
           ]
         }
-        submitType='login'
+        submitType='forgotPass'
       />
       <p 
         className='my-4 text-xl font-light text-black opacity-65'
