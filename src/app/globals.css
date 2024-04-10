@@ -36,3 +36,13 @@ body {
   @apply hover:bg-grayLight hover:text-grayDark
 }
 
+h1 {
+  @apply text-2xl;
+  font-family: 'Londrina Solid';
+  font-style: normal;
+  font-weight: 400;
+}
+
+h2 {
+  @apply text-xl
+}

@@ -22,7 +22,7 @@ export const Profile = () => {
   }, []);
 
   return (
-    <div className='flex h-16 w-full flex-row-reverse'>
+    <div className='mb-4 flex h-16 w-full flex-row-reverse'>
       <div ref={divRef}>
         <CgProfile 
           size={40} 
@@ -40,6 +40,18 @@ export const Profile = () => {
           <div role='menu' aria-orientation='vertical' className='menu-dropdown'>
             <div role='menuitem' className='flex flex-col text-base text-gray'>
               <LinkEst href='#' className='mb-2 px-2'>Meu perfil</LinkEst>
+            </div>
+            <div role='menuitem' className='flex flex-col text-base text-gray'>
+              <LinkEst href='#' className='mb-2 px-2'>Livros</LinkEst>
+            </div>
+            <div role='menuitem' className='flex flex-col text-base text-gray'>
+              <LinkEst href='#' className='mb-2 px-2'>Resenhas</LinkEst>
+            </div>
+            <div role='menuitem' className='flex flex-col text-base text-gray'>
+              <LinkEst href='#' className='mb-2 px-2'>Lembretes</LinkEst>
+            </div>
+            <div role='menuitem' className='flex flex-col text-base text-gray'>
+              <LinkEst href='#' className='mb-2 px-2'>Desejos</LinkEst>
             </div>
             <div role='menuitem' className='flex flex-col text-base text-gray'>
               <LinkEst href='#' className='px-2'>Sair</LinkEst>
