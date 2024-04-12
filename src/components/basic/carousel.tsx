@@ -4,14 +4,12 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 
-interface CarouselProps {
-  items: [
-    {
-      title: string;
-      image?: string;
-      evolution: number;
-    }
-  ]
+export interface CarouselProps {
+  items: {
+    title: string;
+    image?: string;
+    evolution: number;
+  }[]
 }
 
 export const Carousel = (props: CarouselProps) => {
@@ -19,17 +17,20 @@ export const Carousel = (props: CarouselProps) => {
   const [ active, setActive ] = useState(0);
 
   return (
-    <div id='controls-carousel' className='relative w-full' data-carousel='static'>
-      <div className='relative h-56 overflow-hidden rounded-lg'>
+    <div id='controls-carousel' className='relative mb-4 w-full' data-carousel='static'>
+      <div className='relative flex h-64 content-center justify-center overflow-hidden'>
         {
           Array.from({ length: props.items.length }, (_, index)=>{
-
-            console.log(index, props.items[index]);
+            
             return (
               <div 
                 key={index} 
                 className={
-                  `${ active !== index ? active !== index - 1 && active !== index + 1 ? 'hidden' : 'scale-75 opacity-25' : ''} duration-700 ease-in-out`
+                  `
+                    ${ active !== index ? active !== index - 1 && active !== index + 1 ? 'hidden' : 'scale-75 opacity-25' : 'z-10'} 
+                    transition duration-1000
+                    ${ active === index - 1 ? '-ml-10' : active === index + 1 ? '-mr-10' : '' }
+                  `
                 } 
               >
                 {
@@ -52,26 +53,26 @@ export const Carousel = (props: CarouselProps) => {
       </div>
       {/* Controles */}
       <button 
-        type='button' 
-        className={`${active === 0 ? 'hidden' : ''} group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none`}
+        type='button'
+        id='previous' 
+        className={`${active === 0 ? 'hidden' : ''} group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center focus:outline-none`}
         onClick={ () => setActive(active - 1) }
       >
-        <span className='inline-flex size-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white'>
-          <BsFillArrowLeftCircleFill
-            className='rtl:rotate-180'
-            size={16}
+        <span className='inline-flex size-10 items-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white'>
+          <BsFillArrowLeftCircleFill            
+            size={22}
           />  
         </span>
       </button>
       <button 
-        type='button' 
-        className={`${active === props.items.length - 1 ? 'hidden' : ''} group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none`}
-        onClick={ () => setActive(active - 1) }
+        type='button'
+        id='next'
+        className={`${active === props.items.length - 1 ? 'hidden' : ''} group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center focus:outline-none`}
+        onClick={ () => setActive(active + 1) }
       >
-        <span className='inline-flex size-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white'>
+        <span className='inline-flex size-10 items-center justify-end rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white'>
           <BsFillArrowRightCircleFill
-            className='rtl:rotate-180'
-            size={16}
+            size={22}
           />  
         </span>
       </button>
