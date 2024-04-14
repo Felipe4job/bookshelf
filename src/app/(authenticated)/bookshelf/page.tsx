@@ -1,4 +1,5 @@
-import { Carousel, CarouselProps } from '@/components/basic/carousel';
+import { ButtonEst } from '@/components/basic/buttons';
+import { Carousel, CarouselProps, CarouselReminder, CarouselReminderProps } from '@/components/basic/carousel';
 import { InforBox } from '@/components/basic/inforBox';
 import { LinkEst } from '@/components/basic/link';
 
@@ -37,8 +38,28 @@ export default function Bookshelf () {
     ]
   };
 
+  const reminders: CarouselReminderProps = {
+    items: [
+      {
+        id: 'Aqui vai um UUID',
+        text: 'Já faz muito tempo que você não registra uma leitura.',
+        date: '31/12/2024'
+      },
+      {
+        id: 'Aqui vai um UUID',
+        text: 'Você pediu pra avisar que: Eu preciso reler a página 598 do livro Êxodo',
+        date: '31/12/2024'
+      },
+      {
+        id: 'Aqui vai um UUID',
+        text: 'Hoje é o dia mundial da leitura. Que tal maratonar o seu livro preferido? Ou reler suas resenhas?',
+        date: '31/12/2024'
+      }
+    ]
+  };
+
   return (
-    <main className='mx-4 flex flex-wrap pb-4'>
+    <main className='ml-4 flex flex-wrap overflow-y-auto pb-4'>
       <div className='mb-4 w-full' >
         <h1>Página principal</h1>
         {/* <Breadcrumb.Root>
@@ -47,25 +68,38 @@ export default function Bookshelf () {
         </Breadcrumb.Root> */}
       </div>
       {/* Bloco dos meus livros e desejos */}
-      <div className='mb-6 flex w-[430px] flex-col items-center'>
+      <div className='mb-8 flex w-[430px] flex-col items-center'>
         <h2>Meus livros</h2>
         <LinkEst href='#' className='mb-2 text-secondaryDark'>Lista de livros</LinkEst>
         <Carousel items={books.items} />        
       </div>
-      <div className='mb-6 flex w-[430px] flex-col items-center'>
+      <div className='mb-8 flex w-[430px] flex-col items-center'>
         <h2>Livros desejados</h2>
         <LinkEst href='#' className='mb-2 text-secondaryDark'>Lista de desejos</LinkEst>
         <Carousel items={books.items} />        
       </div>
       {/* Bloco da última leitura e de lembretes */}
-      <div className='mb-6 w-[430px]'>
+      <div className='mb-8 w-[430px]'>
         <InforBox.default
           title='Última leitura'
           textMain={<p>Isso é um teste se eu enviar um texto com <strong>Formatação HTML</strong></p>}
           image='/images/0012370984-L.jpg'
         />
-      </div>  
-
+      </div>
+      <div className='mb-12 flex w-[430px] flex-col items-center'>
+        <h2>Lembretes</h2>
+        <LinkEst href='#' className='mb-2 text-secondaryDark'>Página de lembretes</LinkEst>
+        <CarouselReminder items={reminders.items} />
+      </div>
+      <div className='absolute bottom-4 end-4'>
+        <ButtonEst.smallRound
+          id='newReading'
+          text='Registrar leitura'
+          textColor='white'
+          bgColor='#90caf9'
+          type='button'
+        />
+      </div>   
     </main>
   );
 }

@@ -7,7 +7,7 @@ export default function AuthenticatedLayout ({ children: children } : { children
     <>
       <body>
         <NextTopLoader color='#f6e05e' />
-        <main className='flex h-screen w-screen flex-col overflow-auto bg-white'>
+        <main className='relative flex h-screen w-screen flex-col overflow-hidden bg-white'>
           <Profile />
           {children}
         </main>
