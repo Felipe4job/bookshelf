@@ -1,5 +1,6 @@
 import { BookRequestGetProps } from '@/app/(authenticated)/bookshelf/books/page';
 import Image from 'next/image';
+import { LinkEst } from './link';
 
 interface InforBoxProps {
   image?: string;
@@ -70,9 +71,63 @@ export const InforBox = {
           <ol>
             <li><span className='font-semibold'>Total de páginas:</span> {book.total_pages}</li>
             <li><span className='font-semibold'>Evolução:</span> {book.evolution}</li>
-            <li><span className='font-semibold'>Última leitura:</span> {book.last_reading ?? 'Você ainda não registrou uma leitura.'}</li>
-            <li><span className='font-semibold'>Sua última resenha:</span> {book.last_review ?? 'Você ainda não criou uma resenha.'}</li>
-            <li><span className='font-semibold'>Sua descrição:</span> {book.your_description ?? 'Você ainda não criou uma descrição.'}</li>
+            <li>
+              <span className='font-semibold'>Última leitura: </span> 
+              {
+                book.last_reading ?
+                  <>
+                    {book.last_reading}
+                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                      Ver todas
+                    </LinkEst>
+                  </>
+                  :
+                  <>
+                    Você ainda não registrou uma leitura.
+                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                      Registrar leitura
+                    </LinkEst>                  
+                  </>
+              }              
+            </li>
+            <li>
+              <span className='font-semibold'>Última resenha: </span> 
+              {
+                book.last_review ?
+                  <>
+                    {book.last_review}
+                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                      Ver todas
+                    </LinkEst>
+                  </>
+                  :
+                  <>
+                    Você ainda não registrou uma leitura.
+                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                      Registrar resenha
+                    </LinkEst>                  
+                  </>
+              }              
+            </li>
+            <li>
+              <span className='font-semibold'>Sua descrição: </span> 
+              {
+                book.your_description ?
+                  <>
+                    {book.your_description}
+                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                      Ver descrição
+                    </LinkEst>
+                  </>
+                  :
+                  <>
+                    Você ainda não registrou uma leitura.
+                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                      Criar descrição
+                    </LinkEst>                  
+                  </>
+              }              
+            </li>
             {/* Verificar como limitar a quantidade de caracteres */}
           </ol>
         </div>

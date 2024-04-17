@@ -1,8 +1,9 @@
-import { Breadcrumb } from '@/components/basic/breadcrumb';
 import { InforBox } from '@/components/basic/inforBox';
+import { Template } from '@/components/layout/template';
 
 export interface BookRequestGetProps {
   title: string;
+  uuid: string;
   edition_key: string[];
   isbn: string[];
   cover_edition: string | null;
@@ -22,6 +23,7 @@ export default function Books () {
   const books: BookRequestGetProps[] = [
     {
       title: 'Harry Potter e o prisioneiro de Azkaban',
+      uuid: '550e8400-e29b-41d4-a716-446655440000',
       edition_key: [ 'OL49950319M' ],
       isbn: [ 'OL49950319M' ],
       author_name: [ 'J.R.R. Tolkien' ],
@@ -38,6 +40,7 @@ export default function Books () {
     },
     {
       title: 'Scrum Guidebook',
+      uuid: '550e8400-e29b-41d4-a716-446655440000',
       edition_key: [ 'OL49950319M' ],
       isbn: [ 'OL49950319M' ],
       author_name: [ 'J.R.R. Tolkien' ],
@@ -61,6 +64,7 @@ export default function Books () {
     },
     {
       title: 'Os Arteiros Mágicos',
+      uuid: '550e8400-e29b-41d4-a716-446655440000',
       edition_key: [ 'OL49950319M' ],
       isbn: [ 'OL49950319M' ],
       author_name: [ 'J.R.R. Tolkien' ],
@@ -77,6 +81,7 @@ export default function Books () {
     },
     {
       title: 'The memoirs of Sherlock Holmes',
+      uuid: '550e8400-e29b-41d4-a716-446655440000',
       edition_key: [ 'OL49950319M' ],
       isbn: [ 'OL49950319M' ],
       author_name: [ 'J.R.R. Tolkien' ],
@@ -93,6 +98,7 @@ export default function Books () {
     },
     {
       title: 'Sherlock Holmes, um estudo em vermelho.',
+      uuid: '550e8400-e29b-41d4-a716-446655440000',
       edition_key: [ 'OL49950319M' ],
       isbn: [ 'OL49950319M' ],
       author_name: [ 'J.R.R. Tolkien' ],
@@ -109,6 +115,7 @@ export default function Books () {
     },
     {
       title: 'Davi, o homem segundo o coração de Deus',
+      uuid: '550e8400-e29b-41d4-a716-446655440000',
       edition_key: [ 'OL49950319M' ],
       isbn: [ 'OL49950319M', 'OL49950319M' ],
       author_name: [ 'J.R.R. Tolkien' ],
@@ -125,17 +132,22 @@ export default function Books () {
     }
   ];
 
-  console.log(books);
-
   return (
     <main className='flex flex-wrap overflow-y-auto px-4 pb-4'>
-      <div className='mb-4 w-full' >
-        <h1>Meus livros</h1>
-        <Breadcrumb.Root>
-          <Breadcrumb.Link text='Página principal' link='/bookshelf'/>
-          <Breadcrumb.Now text='Meus livros' /> 
-        </Breadcrumb.Root>
-      </div> 
+      <Template
+        title='Livros'
+        breadcrumbItems={ 
+          [ 
+            { text: 'Página principal', link: null },
+            { text: 'livros', link: null } 
+          ] 
+        }
+        button={{
+          id: 'newBook',
+          text: 'Novo livro',
+          link: ''
+        }}
+      /> 
       <div className='flex w-full flex-wrap'>
         {
           Array.from({ length: books.length }, (_, index)=>{
@@ -144,6 +156,7 @@ export default function Books () {
               <div key={index} className='mb-4 w-[430px]'>
                 <InforBox.bookInfor
                   author_name={book.author_name}
+                  uuid={book.uuid}
                   cover_edition={book.cover_edition}
                   current_page={book.current_page}
                   edition_key={book.edition_key}

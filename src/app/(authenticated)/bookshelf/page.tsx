@@ -1,7 +1,7 @@
-import { ButtonEst } from '@/components/basic/buttons';
 import { Carousel, CarouselProps, CarouselReminder, CarouselReminderProps } from '@/components/basic/carousel';
 import { InforBox } from '@/components/basic/inforBox';
 import { LinkEst } from '@/components/basic/link';
+import { Template } from '@/components/layout/template';
 
 export default function Bookshelf () {
   const books: CarouselProps = {
@@ -60,13 +60,14 @@ export default function Bookshelf () {
 
   return (
     <main className='flex flex-wrap overflow-y-auto px-4 pb-4'>
-      <div className='mb-4 w-full' >
-        <h1>Página principal</h1>
-        {/* <Breadcrumb.Root>
-          <Breadcrumb.Link text='Página principal' link='#'/>
-          <Breadcrumb.Now text='Só o teste' /> 
-        </Breadcrumb.Root> */}
-      </div>
+      <Template
+        title='Página principal'
+        button={{
+          id: 'newReading',
+          text: 'Registrar leitura',
+          link: ''
+        }} 
+      />
       {/* Bloco dos meus livros e desejos */}
       <div className='mb-8 flex w-[430px] flex-col items-center'>
         <h2>Meus livros</h2>
@@ -90,15 +91,6 @@ export default function Bookshelf () {
         <h2>Lembretes</h2>
         <LinkEst href='#' className='mb-2 text-secondaryDark'>Página de lembretes</LinkEst>
         <CarouselReminder items={reminders.items} />
-      </div>
-      <div className='absolute bottom-4 end-4'>
-        <ButtonEst.smallRound
-          id='newReading'
-          text='Registrar leitura'
-          textColor='white'
-          bgColor='#90caf9'
-          type='button'
-        />
       </div>   
     </main>
   );
