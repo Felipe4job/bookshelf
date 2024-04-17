@@ -59,7 +59,7 @@ export default function Bookshelf () {
   };
 
   return (
-    <main className='ml-4 flex flex-wrap overflow-y-auto pb-4'>
+    <main className='flex flex-wrap overflow-y-auto px-4 pb-4'>
       <div className='mb-4 w-full' >
         <h1>Página principal</h1>
         {/* <Breadcrumb.Root>
@@ -70,7 +70,7 @@ export default function Bookshelf () {
       {/* Bloco dos meus livros e desejos */}
       <div className='mb-8 flex w-[430px] flex-col items-center'>
         <h2>Meus livros</h2>
-        <LinkEst href='#' className='mb-2 text-secondaryDark'>Lista de livros</LinkEst>
+        <LinkEst href='/bookshelf/books' className='mb-2 text-secondaryDark'>Lista de livros</LinkEst>
         <Carousel items={books.items} />        
       </div>
       <div className='mb-8 flex w-[430px] flex-col items-center'>
