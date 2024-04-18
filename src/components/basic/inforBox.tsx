@@ -2,29 +2,44 @@ import { BookRequestGetProps } from '@/app/(authenticated)/bookshelf/books/page'
 import Image from 'next/image';
 import { LinkEst } from './link';
 
-interface InforBoxProps {
-  image?: string;
+interface InforBoxPropsOneCollum {
   title: string;
   textMain: React.ReactNode;
-  textSecondary?: React.ReactNode; 
+}
+
+interface InforBoxPropsTwoCollumns {
+  image?: string;
+  textImage: string;
+  title: string;
+  author: string;
+  textMain: React.ReactNode;
 }
 
 export const InforBox = {
-  default: (props: InforBoxProps) => {
+  oneCollum: (props: InforBoxPropsOneCollum) => {
+    return (
+      <div className='flex h-40 w-full flex-col overflow-y-auto rounded-lg border border-grayLight bg-secondaryExLight p-4'>
+        <h3 className='mb-2'>{props.title}</h3>
+        {props.textMain}
+      </div>
+    );
+  },
+  twoCollumns: (props: InforBoxPropsTwoCollumns) => {
     return (
       <div className='flex w-full rounded-lg border border-grayLight bg-secondaryExLight py-4'>
         <div className='flex basis-1/2 justify-center'>
           {
             props.image ?
               <Image
-                alt={`image-book`}
+                alt={props.textImage}
                 src={props.image}
                 height={224}
                 width={160} 
               />
               :
-              <div className='px-4'>
-                {props.textSecondary}
+              <div className='flex h-[224px] w-[160px] flex-col border border-secondaryLight p-4'>
+                <div className='basis-4/5'>{props.title}</div>
+                <div>{props.author}</div>
               </div>
           }
         </div>
@@ -115,14 +130,14 @@ export const InforBox = {
                 book.your_description ?
                   <>
                     {book.your_description}
-                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                    <LinkEst href={`/bookshelf/books/book/${book.uuid}/description`} className='ml-4 font-semibold text-secondaryDark'>
                       Ver descrição
                     </LinkEst>
                   </>
                   :
                   <>
-                    Você ainda não registrou uma leitura.
-                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                    Você ainda não registrou uma descrição.
+                    <LinkEst href={`/bookshelf/books/book/${book.uuid}/description`} className='ml-4 font-semibold text-secondaryDark'>
                       Criar descrição
                     </LinkEst>                  
                   </>

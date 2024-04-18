@@ -133,13 +133,13 @@ export default function Books () {
   ];
 
   return (
-    <main className='flex flex-wrap overflow-y-auto px-4 pb-4'>
+    <div className='flex flex-wrap overflow-y-auto px-4 pb-4'>
       <Template
         title='Livros'
         breadcrumbItems={ 
           [ 
             { text: 'Página principal', link: null },
-            { text: 'livros', link: null } 
+            { text: 'Livros', link: null } 
           ] 
         }
         button={{
@@ -176,7 +176,7 @@ export default function Books () {
           })
         }
       </div>
-    </main>
+    </div>
   );
 }
 

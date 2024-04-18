@@ -6,7 +6,7 @@ export interface TemplateProps {
   breadcrumbItems?: {
     text: 
       'Página principal' |
-      'livros' |
+      'Livros' |
       'Desejos' |
       'Sua Descrição' |
       'Resenhas' |
@@ -46,11 +46,11 @@ export const Template = (props: TemplateProps) => {
                 };
                 
                 return (
-                  <>
+                  <div key={index}>
                     {
                       handleBreadcrumb()
                     }
-                  </>
+                  </div>
                 );
               })
             }

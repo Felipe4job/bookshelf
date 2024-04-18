@@ -59,7 +59,7 @@ export default function Bookshelf () {
   };
 
   return (
-    <main className='flex flex-wrap overflow-y-auto px-4 pb-4'>
+    <div className='flex flex-wrap overflow-y-auto px-4 pb-4'>
       <Template
         title='Página principal'
         button={{
@@ -81,10 +81,12 @@ export default function Bookshelf () {
       </div>
       {/* Bloco da última leitura e de lembretes */}
       <div className='mb-8 w-[430px]'>
-        <InforBox.default
+        <InforBox.twoCollumns
           title='Última leitura'
           textMain={<p>Isso é um teste se eu enviar um texto com <strong>Formatação HTML</strong></p>}
           image='/images/0012370984-L.jpg'
+          textImage='Seria o título do livro lido'
+          author='Seria o autor do livro lido'
         />
       </div>
       <div className='mb-12 flex w-[430px] flex-col items-center'>
@@ -92,6 +94,6 @@ export default function Bookshelf () {
         <LinkEst href='#' className='mb-2 text-secondaryDark'>Página de lembretes</LinkEst>
         <CarouselReminder items={reminders.items} />
       </div>   
-    </main>
+    </div>
   );
 }
