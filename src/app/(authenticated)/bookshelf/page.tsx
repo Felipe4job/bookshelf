@@ -1,5 +1,6 @@
 import { Carousel, CarouselProps, CarouselReminder, CarouselReminderProps } from '@/components/basic/carousel';
 import { InforBox } from '@/components/basic/inforBox';
+
 import { LinkEst } from '@/components/basic/link';
 import { Template } from '@/components/layout/template';
 
