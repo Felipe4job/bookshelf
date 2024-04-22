@@ -198,7 +198,8 @@ export default function BookReviews ({ params }:{ params:ParamsProps }) {
       <div className='mb-8'>
         <InforBox.oneCollum
           title={`Dica de como contruir sua resenha: ${reviews.book}`}
-          textMain={reviews.ExplanatoryText} 
+          textMain={reviews.ExplanatoryText}
+          limitHeight={true}
         />
       </div>
       {

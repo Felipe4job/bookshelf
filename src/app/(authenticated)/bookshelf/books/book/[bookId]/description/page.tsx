@@ -87,7 +87,8 @@ export default function BookDescription ({ params }:{ params:ParamsProps }) {
       <div className='mb-8'>
         <InforBox.oneCollum
           title={`Uma dica para construir a sua descrição do livro: ${book.title}`}
-          textMain={book.ExplanatoryText} 
+          textMain={book.ExplanatoryText}
+          limitHeight={true} 
         />
       </div>
       <div className='mb-4'>

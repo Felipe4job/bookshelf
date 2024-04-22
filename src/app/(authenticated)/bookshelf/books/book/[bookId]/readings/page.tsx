@@ -28,6 +28,7 @@ interface ReadingsRequestGetProps {
       'Parque' |
       'Outros' 
     createdDate: string;
+    readingDate: string;
     updatedDate: string;
     startHour: string;
     endHour: string;
@@ -59,6 +60,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -69,6 +71,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -79,6 +82,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -89,6 +93,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -99,6 +104,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -109,6 +115,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -119,6 +126,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -129,6 +137,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -139,6 +148,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -149,6 +159,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -159,6 +170,7 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
         bookPages: '15 - 35',
         createdDate: '22/04/2024',
         updatedDate: '22/04/2024',
+        readingDate: '22/04/2024',
         startHour: '21:00',
         endHour: '22:35',
         duration: '1 hora e 35 min',
@@ -189,29 +201,44 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
       <div className='mb-8'>
         <InforBox.oneCollum
           title={`Um pouco de como anda sua leitura: ${readings.book}`}
-          textMain={readings.ExplanatoryText} 
+          textMain={readings.ExplanatoryText}
+          limitHeight={true} 
         />
       </div>
-      {/* {
+      {
         Array.from({ length: limitView }, (_, index) => {
+          const reading = readings.readings[index];
+          let boxText: React.ReactNode = <></>;
+
+          if(index < readings.total)
+            boxText = 
+              <ol>
+                <li><span style={{ fontWeight: 'bold' }}>Data de criação: </span>{reading.createdDate}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Última atualização: </span>{reading.updatedDate}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Páginas lidas: </span>{reading.bookPages}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Data da leitura: </span>{reading.readingDate}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Hora de início: </span>{reading.startHour}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Hora final: </span>{reading.endHour}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Duração total: </span>{reading.duration}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Local de leitura: </span>{reading.place}</li>
+                <li><span style={{ fontWeight: 'bold' }}>Sensação após leitura: </span>{reading.sensation}</li>
+              </ol>; 
           return (
-            <div key={index}>
+            <div key={index} className='w-[430px]'>
               {
                 index < readings.total &&
                   <div key={index} className='mb-6 border-b border-dotted border-slate-300 pb-6'>
-                    <h3 className='mb-2'>Comentário referente a(s) páginas {readings.readings[index].bookPages}</h3>
-                    <p>Criado em {readings.readings[index].createdDate}</p>
-                    <p className='mb-2'>Última atualização em {readings.readings[index].updatedDate}</p>
-                    <BoxEditText
-                      text={readings.readings[index].text}
-                      editFunction={()=>{}} 
+                    <InforBox.oneCollum
+                      textMain={boxText}
+                      bgColor='white'
+                      edit={true}
                     />
                   </div>
               }
             </div>
           );
         })
-      } */}
+      }
       {
         limitView < readings.total &&
         <div className='mb-14 flex w-full justify-center'>
