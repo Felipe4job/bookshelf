@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { ButtonEst } from './buttons';
 
 interface BoxEditTextProps {
-  title: string;
   text: React.ReactNode;
   editFunction: ()=> void;
 }
@@ -18,7 +17,6 @@ export const BoxEditText = (props: BoxEditTextProps) => {
 
   return (
     <div className='flex w-full flex-col space-y-4 rounded-lg border border-grayLight p-4'>
-      <h3>{props.title}</h3>
       <div>{props.text}</div>
       <div className='flex flex-row-reverse'>
         <ButtonEst.smallRound 

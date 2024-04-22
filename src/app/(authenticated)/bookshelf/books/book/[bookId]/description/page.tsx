@@ -86,18 +86,16 @@ export default function BookDescription ({ params }:{ params:ParamsProps }) {
       />
       <div className='mb-8'>
         <InforBox.oneCollum
-          title={`Uma dica para sua descrição para o livro: ${book.title}`}
+          title={`Uma dica para construir a sua descrição do livro: ${book.title}`}
           textMain={book.ExplanatoryText} 
         />
       </div>
       <div className='mb-4'>
         <BoxEditText
-          title={book.title}
           text={descriptionText}
           editFunction={
             async ()=> {
               'use server';
-              console.log('Funcionou...');
             }}
         />
       </div>

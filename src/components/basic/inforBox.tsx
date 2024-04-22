@@ -111,14 +111,14 @@ export const InforBox = {
                 book.last_review ?
                   <>
                     {book.last_review}
-                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                    <LinkEst href={`/bookshelf/books/book/${book.uuid}/reviews`} className='ml-4 font-semibold text-secondaryDark'>
                       Ver todas
                     </LinkEst>
                   </>
                   :
                   <>
-                    Você ainda não registrou uma leitura.
-                    <LinkEst href='#' className='ml-4 font-semibold text-secondaryDark'>
+                    Você ainda não registrou uma resenha.
+                    <LinkEst href={`/bookshelf/books/book/${book.uuid}/reviews`} className='ml-4 font-semibold text-secondaryDark'>
                       Registrar resenha
                     </LinkEst>                  
                   </>
