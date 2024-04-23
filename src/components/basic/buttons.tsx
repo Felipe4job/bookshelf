@@ -1,27 +1,35 @@
-interface button {
-  id: string,
-  bgColor: string,
-  textColor: string,
-  text: string,
-  type: 'submit' | 'reset' | 'button',
-  onClick?: ()=> void,
-  disable?: boolean 
-  disableText?: 'Salvando...' | 'Entrando...' | 'Excluindo...' | 'Aguarde...'
+interface ButtonProps {
+  id: string;
+  bgColor: string;
+  textColor: string;
+  text: string;
+  type: 'submit' | 'reset' | 'button';
+  onClick?: ()=> void;
+  disable?: boolean;
+  disableText?: 'Salvando...' | 'Entrando...' | 'Excluindo...' | 'Aguarde...';
+}
+
+interface ButtonTextProps {
+  text: string;
+  textColor: string;
+  onClick: ()=> void;
+  id: string;
+  type: 'submit' | 'reset' | 'button';
 }
 
 export const ButtonEst = {
-  smallRound: (params:button)=>{
+  smallRound: (props: ButtonProps)=>{
     return (
       <button
-        id={params.id}
-        type={params.type}
-        disabled={params.disable}
-        onClick={params.onClick}
-        className={`${'text-' + params.textColor} rounded-full px-10 py-2.5 text-sm font-medium hover:font-bold hover:opacity-75`}
-        style={{ backgroundColor: params.bgColor }}
+        id={props.id}
+        type={props.type}
+        disabled={props.disable}
+        onClick={props.onClick}
+        className={`${'text-' + props.textColor} rounded-full px-10 py-2.5 text-sm font-medium hover:font-bold hover:opacity-75`}
+        style={{ backgroundColor: props.bgColor }}
       >
         {
-          params.disable &&
+          props.disable &&
           <svg className='-ml-1 mr-3 size-5 animate-spin text-white' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
             <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
             <path className='opacity-75' fill='currentColor'
@@ -29,8 +37,20 @@ export const ButtonEst = {
             </path>
           </svg>
         }
-        {params.disable ? params.disableText : params.text}
+        {props.disable ? props.disableText : props.text}
       </button>
+    );
+  },
+  ButtonText: (props: ButtonTextProps)=>{
+    return (
+      <div
+        id={props.id}
+        onClick={props.onClick}
+        className='cursor-pointer'
+        style={{ color: props.textColor }}
+      >
+        {props.text}
+      </div>
     );
   }
 };

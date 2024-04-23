@@ -95,6 +95,15 @@ export const BookInfor = (book: BookRequestGetProps) => {
                 </>
             }              
           </li>
+          <li>
+            <span className='font-semibold'>Personagens: </span> 
+            <>
+              Você ainda não registrou nehum personagem.
+              <LinkEst href={`/bookshelf/books/book/${book.uuid}/characters`} className='ml-4 font-semibold text-secondaryDark'>
+                Criar personagem
+              </LinkEst>                  
+            </>            
+          </li>
           {/* Verificar como limitar a quantidade de caracteres */}
         </ol>
       </div>
