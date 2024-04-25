@@ -1,3 +1,6 @@
+'use client';
+
+import { useGlobalContext } from '@/contexts/globalProvider';
 import { Breadcrumb } from '../basic/breadcrumb';
 import { ButtonEst } from '../basic/buttons';
 
@@ -18,11 +21,19 @@ export interface TemplateProps {
   button?: {
     text: string,
     link: string,
-    id: string
+    id: string,
+    modalContent: any
   }
 }
 
 export const Template = (props: TemplateProps) => {
+  
+  const { handleModal } = useGlobalContext();
+
+  const handleButton = () => {
+    handleModal(true, props.button?.modalContent);
+  };
+
   return (
     <>
       <div className='mb-4 w-full' >
@@ -66,6 +77,7 @@ export const Template = (props: TemplateProps) => {
             textColor='white'
             bgColor='#90caf9'
             type='button'
+            onClick={handleButton}
           />
         </div>
       }      

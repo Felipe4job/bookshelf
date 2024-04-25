@@ -9,33 +9,35 @@ interface ParamsProps {
   bookId: string;
 }
 
-interface ReadingsRequestGetProps {
+export interface ReadingsRequestGetProps {
   uuid: string;
   book: string;
   ExplanatoryText: string;
   total: number;
   limit: number;
-  readings: {
-    place: 
-      'Na cama antes de dormir' | 
-      'Na mesa pela manhã' | 
-      'Em uma cafeteria' | 
-      'A tarde' | 
-      'A noite' |
-      'Metrô' |
-      'Ônibus' |
-      'Carro' |
-      'Parque' |
-      'Outros' 
-    createdDate: string;
-    readingDate: string;
-    updatedDate: string;
-    startHour: string;
-    endHour: string;
-    duration: string;
-    sensation: string;
-    bookPages: string;
-  } [];
+  readings:ReadingRequestResProps[];
+}
+
+export interface ReadingRequestResProps {
+  place: 
+    'Na cama antes de dormir' | 
+    'Na mesa pela manhã' | 
+    'Em uma cafeteria' | 
+    'A tarde' | 
+    'A noite' |
+    'Metrô' |
+    'Ônibus' |
+    'Carro' |
+    'Parque' |
+    'Outros' 
+  createdDate: string;
+  readingDate: string;
+  updatedDate: string;
+  startHour: string;
+  endHour: string;
+  duration: string;
+  sensation: string;
+  bookPages: string;
 }
 
 export default function BookReadings ({ params }:{ params:ParamsProps }) {
@@ -192,11 +194,11 @@ export default function BookReadings ({ params }:{ params:ParamsProps }) {
           { text: 'Livros', link: '/bookshelf/books' },
           { text: 'Leituras', link: null }
         ]}
-        button={{
-          id: 'newReading2',
-          text: 'Nova leitura',
-          link: '#'
-        }} 
+        // button={{
+        //   id: 'newReading2',
+        //   text: 'Nova leitura',
+        //   link: '#'
+        // }} 
       />
       <div className='mb-8'>
         <InforBox.oneCollum
