@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { Input } from '../basic/inputs';
+import { Input } from '../basic/inputsOld';
 import { LinkEst } from '../basic/link';
 import { ButtonEst } from '../basic/buttons';
 

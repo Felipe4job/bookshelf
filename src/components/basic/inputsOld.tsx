@@ -5,23 +5,24 @@ import { FieldErrorsImpl } from 'react-hook-form';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
 interface inputsInterface  {
-  id: string,
-  name: string,
-  title: string,
-  register: any,
-  errors: FieldErrorsImpl,
-  type: string,
-  value?: string, 
-  eyePass?: boolean,
-  seePass?: string,
-  placeholder: string,
-  rules: object,
-  readonly?: true,
-  mask?: 'cpf' | 'cnpj',
-  acceptable_file_types?: string,
-  rows?:string,
-  defaultChecked?:boolean,
-  style?:any
+  id: string;
+  name: string;
+  title: string;
+  register: any;
+  errors: FieldErrorsImpl;
+  type: string;
+  value?: string; 
+  eyePass?: boolean;
+  seePass?: string;
+  placeholder: string;
+  rules: object;
+  readonly?: true;
+  mask?: 'cpf' | 'cnpj';
+  acceptable_file_types?: string;
+  rows?: string;
+  defaultChecked?: boolean;
+  style?: any;
+  step?: number;
 }
 
 export const Input = {
@@ -38,6 +39,8 @@ export const Input = {
           <input
             style={params.style}
             type={isPasswordVisible ? 'text' : params.type}
+            onChange={(e)=> console.log('mudou', e)}
+            step={params.step}
             id={params.id}
             className='block w-full rounded-lg bg-grayLight p-2.5 text-center text-2xl text-grayDark focus:ring-secondaryDark'
             placeholder={params.placeholder}
