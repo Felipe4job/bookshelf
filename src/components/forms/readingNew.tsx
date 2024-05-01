@@ -53,6 +53,9 @@ export const ReadingNew = (props: NewReadingProps) => {
           register={ register }
           errors={ errors } 
         />
+        <p className='-mt-4 mb-4 text-sm text-primaryDark'>
+          Indique a página inicial.
+        </p>
       </div>
       <div className={`${!(props.stage === 0 || props.stage === 3) ? 'hidden' : ''}`}>
         <InputEst.date
@@ -87,6 +90,9 @@ export const ReadingNew = (props: NewReadingProps) => {
           register={ register }
           errors={ errors } 
         />
+        <p className='-mt-4 mb-4 text-sm text-primaryDark'>
+          Indique a página final.
+        </p>
         <div className='flex flex-row-reverse'>
           <ButtonEst.smallRound
             id='saveNewReading'

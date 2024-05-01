@@ -5,6 +5,7 @@ import { ReadingRequestResProps } from '@/app/(authenticated)/bookshelf/books/bo
 import { Forms } from '@/components/forms';
 import { useGlobalContext } from '@/contexts/globalProvider';
 import { useState } from 'react';
+import { CommentsNew } from './commentsNew';
 
 interface ReadingNewProps {
   bookTitle: string;
@@ -68,7 +69,7 @@ export const ReadingNewModal = (props: ReadingNewProps) => {
         <div className='mb-6 flex w-full flex-col space-y-3'>
           <ButtonEst.ButtonWhiteFull
             id='readingEditCharacters' 
-            text='Editar personagens'
+            text='Editar ou Adicionar personagens'
             type='button'
             onClick={() => {console.log('Editar personagens');}}
           />
@@ -76,7 +77,9 @@ export const ReadingNewModal = (props: ReadingNewProps) => {
             id='readingAddComments' 
             text='Adicionar comentário'
             type='button'
-            onClick={() => {console.log('Adicionar comentário');}}
+            onClick={() => {
+              handleModal(true, CommentsNew);
+            }}
           />
         </div>
       }
