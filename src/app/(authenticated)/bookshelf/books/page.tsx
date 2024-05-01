@@ -142,11 +142,11 @@ export default function Books () {
             { text: 'Livros', link: null } 
           ] 
         }
-        button={{
-          id: 'newBook',
-          text: 'Novo livro',
-          link: ''
-        }}
+        // button={{
+        //   id: 'newBook',
+        //   text: 'Novo livro',
+        //   link: ''
+        // }}
       /> 
       <div className='flex w-full flex-wrap'>
         {

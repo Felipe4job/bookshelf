@@ -189,11 +189,11 @@ export default function BookReviews ({ params }:{ params:ParamsProps }) {
           { text: 'Livros', link: '/bookshelf/books' },
           { text: 'Resenhas', link: null }
         ]}
-        button={{
-          id: 'newReview',
-          text: 'Nova resenha',
-          link: '#'
-        }} 
+        // button={{
+        //   id: 'newReview',
+        //   text: 'Nova resenha',
+        //   link: '#'
+        // }} 
       />
       <div className='mb-8'>
         <InforBox.oneCollum

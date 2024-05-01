@@ -1,7 +1,7 @@
 interface ButtonProps {
   id: string;
-  bgColor: string;
-  textColor: string;
+  bgColor?: string;
+  textColor?: string;
   text: string;
   type: 'submit' | 'reset' | 'button';
   onClick?: ()=> void;
@@ -18,7 +18,7 @@ interface ButtonTextProps {
 }
 
 export const ButtonEst = {
-  smallRound: (props: ButtonProps)=>{
+  smallRound: (props: ButtonProps) => {
     return (
       <button
         id={props.id}
@@ -41,7 +41,7 @@ export const ButtonEst = {
       </button>
     );
   },
-  ButtonText: (props: ButtonTextProps)=>{
+  ButtonText: (props: ButtonTextProps) => {
     return (
       <div
         id={props.id}
@@ -51,6 +51,19 @@ export const ButtonEst = {
       >
         {props.text}
       </div>
+    );
+  },
+  ButtonWhiteFull : (props: ButtonProps) => {
+    return (
+      <button
+        id={props.id}
+        type={props.type}
+        disabled={props.disable}
+        onClick={props.onClick}
+        className={`w-full rounded-md border border-secondaryDark px-10 py-2.5 font-medium text-secondaryDark hover:font-bold hover:opacity-75`}
+      >
+        {props.text}
+      </button>
     );
   }
 };

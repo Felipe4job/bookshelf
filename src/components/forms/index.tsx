@@ -1,7 +1,7 @@
 import FormPublic from './formPublic';
-import { NewReading } from './newReading';
+import { ReadingNew } from './readingNew';
 
 export const Forms = {
   formPublic: FormPublic,
-  newReading: NewReading
+  newReading: ReadingNew
 };

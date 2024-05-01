@@ -1,23 +1,28 @@
+'use client';
+
 import { ModalDefault } from '@/components/basic/modals/modal';
 import { createContext, useContext, useState } from 'react';
 
 interface GlobalContextProps {
-  handleModal: (active: boolean, modal: any) => void;
+  handleModal: (active: boolean, modal?: any) => void;
 }
 
-const GlobalContext = createContext<GlobalContextProps>({} as GlobalContextProps);
+export const GlobalContext = createContext<GlobalContextProps>({} as GlobalContextProps);
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [ activeModal, setActiveModal ] = useState(false);
-  const [ modal, setModal ] = useState<React.ReactNode>(<></>);
+  const [ { modal }, setModal ] = useState<any>({ modal: undefined });
 
   const handleModal = (active: boolean, modal: any) => {
-    setActiveModal(active);
+    
+    if(active) {
+      setModal({ modal: modal });
+    }else{
+      setModal({ modal: undefined });
+    }
 
-    if(active)
-      setModal(modal);
-    else setModal(<></>);
+    setActiveModal(active);
   };
 
   return (
@@ -28,9 +33,7 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     >
       {
         activeModal &&
-        <ModalDefault>
-          {modal}
-        </ModalDefault>
+        <ModalDefault content={modal} />
       }
       { children }
     </GlobalContext.Provider>

@@ -3,7 +3,6 @@ import { InforBox } from '@/components/basic/inforBox';
 
 import { LinkEst } from '@/components/basic/link';
 import { ReadingNewModal } from '@/components/basic/modals/contents/readingNew';
-import { ModalDefault } from '@/components/basic/modals/modal';
 import { Template } from '@/components/layout/template';
 
 export default function Bookshelf () {
@@ -73,9 +72,6 @@ export default function Bookshelf () {
         }} 
       />
       {/* Bloco dos meus livros e desejos */}
-      <ModalDefault>
-        <ReadingNewModal bookTitle='Título qualquer' />
-      </ModalDefault>
       <div className='mb-8 flex w-[430px] flex-col items-center'>
         <h2>Meus livros</h2>
         <LinkEst href='/bookshelf/books' className='mb-2 text-secondaryDark'>Lista de livros</LinkEst>

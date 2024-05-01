@@ -571,11 +571,11 @@ export default function BookCharacters ({ params }:{ params:ParamsProps }) {
           { text: 'Livros', link: '/bookshelf/books' },
           { text: 'Personagens', link: null }
         ]}
-        button={{
-          id: 'newCharacter',
-          text: 'Novo personagem',
-          link: '#'
-        }} 
+        // button={{
+        //   id: 'newCharacter',
+        //   text: 'Novo personagem',
+        //   link: '#'
+        // }} 
       />
       <div className='mb-8'>
         <InforBox.oneCollum

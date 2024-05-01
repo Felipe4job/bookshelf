@@ -3,6 +3,7 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { useEffect, useState } from 'react';
 import { FieldErrorsImpl } from 'react-hook-form';
+import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 
 interface NumberProps {
   id: string;
@@ -34,7 +35,7 @@ export const NumberType = (props: NumberProps) => {
 
   return (
     <>
-      <div className={`${props.marginBot ? props.marginBot : 'mb-4'}`}>
+      <div className={`relative ${props.marginBot ? props.marginBot : 'mb-4'}`}>
         <input
           style={props.style}
           type='text'
@@ -45,6 +46,24 @@ export const NumberType = (props: NumberProps) => {
           readOnly={props.readonly}
           value={value}
           {...props.register(props.name, props.rules)} 
+        />
+        <FaArrowUp 
+          className='absolute right-2 top-1 cursor-pointer text-primaryDark hover:scale-x-105'
+          onClick={
+            () => {
+              if(parseInt(value) < 999999)
+                setValue((parseInt(value) + 1).toString());
+            }
+          }
+        />
+        <FaArrowDown 
+          className='absolute bottom-1 right-2 cursor-pointer text-primaryDark hover:scale-x-105'
+          onClick={
+            () => {
+              if(parseInt(value) > 0)
+                setValue((parseInt(value) - 1).toString());
+            }
+          }
         />
       </div>
       <ErrorMessage
