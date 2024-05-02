@@ -25,7 +25,7 @@ export const TextOrEmailType = (props:inputsInterface) => {
           style={props.style}
           type={props.type}
           id={props.id}
-          className='block w-full rounded-lg bg-grayLight p-2.5 text-center text-2xl text-grayDark focus:ring-secondaryDark'
+          className='block w-full rounded-lg bg-grayExLight p-2.5 text-grayDark focus:bg-white focus:text-black focus:ring-secondaryDark'
           placeholder={props.placeholder}
           readOnly={props.readonly}
           value={props.value}

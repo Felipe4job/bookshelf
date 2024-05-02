@@ -6,6 +6,7 @@ import { Forms } from '@/components/forms';
 import { useGlobalContext } from '@/contexts/globalProvider';
 import { useState } from 'react';
 import { CommentsNew } from './commentsNew';
+import { CharactersModal } from './characters';
 
 interface ReadingNewProps {
   bookTitle: string;
@@ -71,7 +72,9 @@ export const ReadingNewModal = (props: ReadingNewProps) => {
             id='readingEditCharacters' 
             text='Editar ou Adicionar personagens'
             type='button'
-            onClick={() => {console.log('Editar personagens');}}
+            onClick={() => {
+              handleModal(true, CharactersModal);
+            }}
           />
           <ButtonEst.ButtonWhiteFull
             id='readingAddComments' 
@@ -85,7 +88,7 @@ export const ReadingNewModal = (props: ReadingNewProps) => {
       }
       {/* Bloco que inicia o form */}
       <div className='mb-10 max-h-96 overflow-y-scroll'>
-        <Forms.newReading
+        <Forms.readingNew
           bookId='aaaaaaaa-bbbb-1ccc-8ddd-eeeeeeeeeeee'
           stage={stage} 
         />
