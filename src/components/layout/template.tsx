@@ -20,7 +20,6 @@ export interface TemplateProps {
   }[],
   button?: {
     text: string,
-    link: string,
     id: string,
     modalContent: any
   }

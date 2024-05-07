@@ -1,3 +1,4 @@
+import { BookNewForm } from './bookNew';
 import { CharacterNew } from './characterNew';
 import { CommentsNew } from './commentsNew';
 import FormPublic from './formPublic';
@@ -7,5 +8,6 @@ export const Forms = {
   formPublic: FormPublic,
   readingNew: ReadingNew,
   commentNew: CommentsNew,
-  characterNew: CharacterNew
+  characterNew: CharacterNew,
+  bookNew: BookNewForm
 };

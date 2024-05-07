@@ -1,4 +1,5 @@
 import { InforBox } from '@/components/basic/inforBox';
+import { BookNew } from '@/components/basic/modals/contents/bookNew';
 import { Template } from '@/components/layout/template';
 
 export interface BookRequestGetProps {
@@ -142,11 +143,11 @@ export default function Books () {
             { text: 'Livros', link: null } 
           ] 
         }
-        // button={{
-        //   id: 'newBook',
-        //   text: 'Novo livro',
-        //   link: ''
-        // }}
+        button={{
+          id: 'newReading',
+          text: 'Adicionar livro',
+          modalContent: BookNew
+        }}
       /> 
       <div className='flex w-full flex-wrap'>
         {

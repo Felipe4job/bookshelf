@@ -67,7 +67,6 @@ export default function Bookshelf () {
         button={{
           id: 'newReading',
           text: 'Registrar leitura',
-          link: '',
           modalContent: ReadingNewModal
         }} 
       />
