@@ -46,24 +46,30 @@ export const BookNew = () => {
               Array.from({ length: books.length }, (_, index) => {
                 const book = books[index];
                 return (
-                  <li key={index} className='flex'>
-                    {
-                      book.volumeInfo.imageLinks ?
-                        <Image
-                          alt='Book Cover'
-                          src={book.volumeInfo.imageLinks.thumbnail}
-                          height={224}
-                          width={160}
-                        />
-                        :
-                        <div className='flex h-[224px] w-[160px] flex-col border border-secondaryLight p-4'>
-                          <div className='basis-4/5'>{book.volumeInfo.title}</div>
-                          <div>{book.volumeInfo.authors.join(', ')}</div>
-                        </div>
-                    }
-                    <div className='flex flex-col'>
+                  <li key={index} className='mb-4 flex max-h-[180px] cursor-pointer gap-x-2'>
+                    <div>
+                      {
+                        book.volumeInfo.imageLinks ?
+                          <Image
+                            alt='Book Cover'
+                            src={book.volumeInfo.imageLinks.thumbnail}
+                            height={180}
+                            width={120}
+                          />
+                          :
+                          <div className='flex h-[180px] w-[120px] flex-col border border-secondaryLight p-4 text-sm'>
+                            <div className='basis-3/5 overflow-hidden text-ellipsis'>{book.volumeInfo.title}</div>
+                            <div className='basis-2/5 overflow-hidden text-ellipsis'>{book.volumeInfo.authors.join(', ')}</div>
+                          </div>
+                      }                      
+                    </div>
+                    <div className='basis-3/5 overflow-auto'>
                       <ol>
-                        <li>{book.volumeInfo.title}</li>
+                        <li><h3>{book.volumeInfo.title}</h3></li>
+                        {
+                          book.volumeInfo.subtitle &&
+                          <li>{book.volumeInfo.subtitle}</li>
+                        }
                         <li>
                           {book.volumeInfo.authors.length === 1 ? 'Autor(a): ' : 'Autores: '}
                           {book.volumeInfo.authors.join(', ')}

@@ -2,9 +2,9 @@
 
 import { useForm } from 'react-hook-form';
 import { InputEst } from '../basic/inputs';
-import { ButtonEst } from '../basic/buttons';
 import { requests } from '@/requests';
 import { GetGoogleBooksResProps } from '@/requests/books/types';
+import { IoSearchCircle } from 'react-icons/io5';
 
 interface BookNewFormProps {
   setBooks: (books: GetGoogleBooksResProps[]) => void;
@@ -27,27 +27,26 @@ export const BookNewForm = (props: BookNewFormProps) => {
 
   return (
     <form onSubmit={ handleSubmit(onSubmit) } >
-      <InputEst.textOrEmail
-        id='bookTitle'
-        name='bookTitle'
-        title='Título do livro'
-        placeholder='Título do livro'
-        type='text'
-        style={{ fontSize: 'var(--text-base)' }}
-        rules={{
-          required: 'O campo título é obrigatório.'
-        }}
-        register={ register }
-        errors={ errors } 
-      />
-      <div className='flex flex-row-reverse'>
-        <ButtonEst.smallRound
-          id='saveAddBooking'
-          text='Enviar'
-          type='submit'
-          bgColor='var(--secondaryExDark)'
-          textColor='white'
+      <div className='relative'>
+        <InputEst.textOrEmail
+          id='bookTitle'
+          name='bookTitle'
+          title='Título do livro'
+          placeholder='Título do livro'
+          type='text'
+          style={{ 
+            fontSize: 'var(--text-base)',
+            paddingRight: '40px' 
+          }}
+          rules={{
+            required: 'O campo título é obrigatório.'
+          }}
+          register={ register }
+          errors={ errors } 
         />
+        <button type='submit' className='absolute inset-y-0 right-2 flex cursor-pointer items-center'>
+          <IoSearchCircle className='text-primaryDark' size={30}/>
+        </button>        
       </div>
     </form>
   );
