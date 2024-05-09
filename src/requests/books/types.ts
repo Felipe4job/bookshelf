@@ -16,11 +16,11 @@ interface SaleInfo {
 
 interface VolumeInfo {
   authors: string[];
-  canonicalVolumeLink: string;
+  canonicalVolumeLink?: string;
   categories: string[];
   contentVersion: string;
-  description: string;
-  imageLinks: {
+  description?: string;
+  imageLinks?: {
     smallThumbnail: string;
     thumbnail: string
   };
@@ -34,4 +34,38 @@ interface VolumeInfo {
   publisher: string;
   title: string;
   subtitle?: string;
+}
+
+export interface GetBooksResProps {
+  uuid: string;
+  volumeInfo: VolumeInfo;
+  lastReading?: LastReading;
+  lastReview?: {
+    uuid: string;
+    text: string;
+  };
+  characters?: {
+    uuid: string;
+    name: string;
+  }[];
+}
+
+interface LastReading {
+  uuid: string;
+  startPage: number;
+  lastPage: number;
+  startDate: string; // aaaa-mm-dd+hh:mm
+  endDate: string;
+  evolution: string;
+}
+
+export interface PostBookEntryProps {
+  volumeInfo: VolumeInfo;
+}
+
+export interface PutBookEntryProps {
+  uuid: string;
+  volumeInfo: {
+    description: string;
+  };
 }

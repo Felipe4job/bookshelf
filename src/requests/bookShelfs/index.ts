@@ -1,50 +1,36 @@
 import fetchApi, { FetchApiResponse, FetchError } from '../fetchApi';
-import { GetBooksResProps, GetGoogleBooksResProps, PostBookEntryProps, PutBookEntryProps } from './types';
+import { GetBookshelfResProps, PostBookshelfEntryProps, PutBookshelfEntryProps } from './types';
 
-const basePath = '/api/v1/books';
+const basePath = '/api/v1/bookshelfs';
 
-export const crudBooks = {
-  getGoogleBooks: async (title: string) => {
+export const crudBookshelfs = {
+  getAllMyBookshelfs: async () => {
 
     return await fetchApi({
-      path: `/books/v1/volumes?q=${title}&printType=books&orderBy=relevance&maxResults=20&key=${process.env.NEXT_PUBLIC_API_KEY_GOOGLE_BOOKS}`,
+      path: basePath,
       method: 'GET',
-      gooleBooks: true
     })
       .then((res: FetchApiResponse) => {
-        return res.data.items as GetGoogleBooksResProps[];
+        return res.data as GetBookshelfResProps[];
       })
       .catch((error: FetchError) => {
         throw new FetchError(error.message, error.code);
       });
   },
-  getAllMyBooks: async (bookshelfId: string) => {
+  getOneBookshelfById: async (bookshelfId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookshelfId,
       method: 'GET',
     })
       .then((res: FetchApiResponse) => {
-        return res.data as GetBooksResProps[];
+        return res.data as GetBookshelfResProps;
       })
       .catch((error: FetchError) => {
         throw new FetchError(error.message, error.code);
       });
   },
-  getOneBookById: async (bookshelfId: string, bookId: string) => {
-
-    return await fetchApi({
-      path: basePath + '/' + bookshelfId + '/' + bookId,
-      method: 'GET',
-    })
-      .then((res: FetchApiResponse) => {
-        return res.data as GetBooksResProps;
-      })
-      .catch((error: FetchError) => {
-        throw new FetchError(error.message, error.code);
-      });
-  },
-  postBook: async (data: PostBookEntryProps) => {
+  postBookshelf: async (data: PostBookshelfEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -54,13 +40,13 @@ export const crudBooks = {
       }
     })
       .then((res: FetchApiResponse) => {
-        return res.data as GetBooksResProps;
+        return res.data as GetBookshelfResProps;
       })
       .catch((error: FetchError) => {
         throw new FetchError(error.message, error.code);
       });
   },
-  putBook: async (data: PutBookEntryProps) => {
+  putBookshelf: async (data: PutBookshelfEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -70,16 +56,16 @@ export const crudBooks = {
       }
     })
       .then((res: FetchApiResponse) => {
-        return res.data as GetBooksResProps;
+        return res.data as GetBookshelfResProps;
       })
       .catch((error: FetchError) => {
         throw new FetchError(error.message, error.code);
       });
   },
-  deleteBook: async (bookshelfId: string, bookId: string) => {
+  deleteBookshelf: async (bookshelfId: string) => {
 
     return await fetchApi({
-      path: basePath + '/' + bookshelfId + '/' + bookId,
+      path: basePath + '/' + bookshelfId,
       method: 'DELETE',
     })
       .catch((error: FetchError) => {
