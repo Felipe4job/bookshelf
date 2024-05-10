@@ -16,3 +16,5 @@ Dump de livros do open library
 
 ola! sobre a geração de imagem, sim é possivel construir pipelines de geração colocando em buckets, vale dar uma olhada nas integrações do bedrock com step functions!
 
+Testes: Prática em testes unitários e de integração. Ferramentas como Jest para testes em React e Supertest para testes no Node.js. Desenvolvimento prevendo o uso de automatizadores de testes, ex: Captura de Ids e Xpath nas aplicações Front End.
+

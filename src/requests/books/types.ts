@@ -15,7 +15,7 @@ interface SaleInfo {
 }
 
 interface VolumeInfo {
-  authors: string[];
+  authors?: string[];
   canonicalVolumeLink?: string;
   categories: string[];
   contentVersion: string;
@@ -40,10 +40,12 @@ export interface GetBooksResProps {
   uuid: string;
   volumeInfo: VolumeInfo;
   lastReading?: LastReading;
-  lastReview?: {
+  Reviews?: {
     uuid: string;
+    createdAt: string;
+    updatedAt: string;
     text: string;
-  };
+  }[];
   characters?: {
     uuid: string;
     name: string;
@@ -60,6 +62,7 @@ interface LastReading {
 }
 
 export interface PostBookEntryProps {
+  bookShelfId: string; 
   volumeInfo: VolumeInfo;
 }
 

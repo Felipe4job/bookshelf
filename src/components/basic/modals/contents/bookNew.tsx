@@ -59,7 +59,10 @@ export const BookNew = () => {
                           :
                           <div className='flex h-[180px] w-[120px] flex-col border border-secondaryLight p-4 text-sm'>
                             <div className='basis-3/5 overflow-hidden text-ellipsis'>{book.volumeInfo.title}</div>
-                            <div className='basis-2/5 overflow-hidden text-ellipsis'>{book.volumeInfo.authors.join(', ')}</div>
+                            {
+                              book.volumeInfo.authors &&
+                              <div className='basis-2/5 overflow-hidden text-ellipsis'>{book.volumeInfo.authors.join(', ')}</div>
+                            }
                           </div>
                       }                      
                     </div>
@@ -70,10 +73,13 @@ export const BookNew = () => {
                           book.volumeInfo.subtitle &&
                           <li>{book.volumeInfo.subtitle}</li>
                         }
-                        <li>
-                          {book.volumeInfo.authors.length === 1 ? 'Autor(a): ' : 'Autores: '}
-                          {book.volumeInfo.authors.join(', ')}
-                        </li>
+                        {
+                          book.volumeInfo.authors &&
+                          <li>
+                            {book.volumeInfo.authors.length === 1 ? 'Autor(a): ' : 'Autores: '}
+                            {book.volumeInfo.authors.join(', ')}
+                          </li>
+                        }
                         <li>
                           Qtd. Páginas: {book.volumeInfo.pageCount}
                         </li>
