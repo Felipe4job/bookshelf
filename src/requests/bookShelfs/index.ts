@@ -4,7 +4,7 @@ import { GetBookshelfResProps, PostBookshelfEntryProps, PutBookshelfEntryProps }
 const basePath = '/api/v1/bookshelfs';
 
 export const crudBookshelfs = {
-  getAllMyBookshelfs: async () => {
+  getAllMe: async () => {
 
     return await fetchApi({
       path: basePath,
@@ -17,7 +17,7 @@ export const crudBookshelfs = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getOneBookshelfById: async (bookshelfId: string) => {
+  getOneById: async (bookshelfId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookshelfId,
@@ -30,7 +30,7 @@ export const crudBookshelfs = {
         throw new FetchError(error.message, error.code);
       });
   },
-  postBookshelf: async (data: PostBookshelfEntryProps) => {
+  post: async (data: PostBookshelfEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -46,7 +46,7 @@ export const crudBookshelfs = {
         throw new FetchError(error.message, error.code);
       });
   },
-  putBookshelf: async (data: PutBookshelfEntryProps) => {
+  put: async (data: PutBookshelfEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -62,7 +62,7 @@ export const crudBookshelfs = {
         throw new FetchError(error.message, error.code);
       });
   },
-  deleteBookshelf: async (bookshelfId: string) => {
+  delete: async (bookshelfId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookshelfId,

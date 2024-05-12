@@ -4,7 +4,7 @@ import { GetBookReviewsResProps, PostBookReviewEntryProps, PutBookReviewEntryPro
 const basePath = '/api/v1/books/reviews';
 
 export const crudBooks = {
-  getAllBookReviews: async (bookId: string) => {
+  getAllByBook: async (bookId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookId,
@@ -17,7 +17,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getOneBookReviewById: async (bookId: string, reviewId: string) => {
+  getOneById: async (bookId: string, reviewId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookId + '/' + reviewId,
@@ -30,7 +30,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  postBookReview: async (data: PostBookReviewEntryProps) => {
+  post: async (data: PostBookReviewEntryProps) => {
 
     return await fetchApi({
       path: basePath + '/' + 'reviews',
@@ -46,7 +46,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  putBook: async (data: PutBookReviewEntryProps) => {
+  put: async (data: PutBookReviewEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -62,7 +62,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  deleteBook: async (bookId: string, reviewId: string) => {
+  delete: async (bookId: string, reviewId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookId + '/' + reviewId,

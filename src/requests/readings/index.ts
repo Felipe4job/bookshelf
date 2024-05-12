@@ -4,7 +4,7 @@ import { GetReadingsResProps, PostReadingEntryProps, PutReadingEntryProps } from
 const basePath = '/api/v1/readings';
 
 export const crudReadings = {
-  getAllMyReadings: async () => {
+  getAllMe: async () => {
 
     return await fetchApi({
       path: basePath,
@@ -17,7 +17,7 @@ export const crudReadings = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getAllBookReadings: async (bookId: string) => {
+  getAllbyBook: async (bookId: string) => {
 
     return await fetchApi({
       path: basePath + '/book/' + bookId,
@@ -30,7 +30,7 @@ export const crudReadings = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getOneReadingById: async (readingId: string) => {
+  getOneById: async (readingId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + readingId,
@@ -43,7 +43,7 @@ export const crudReadings = {
         throw new FetchError(error.message, error.code);
       });
   },
-  postReading: async (data: PostReadingEntryProps) => {
+  post: async (data: PostReadingEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -59,7 +59,7 @@ export const crudReadings = {
         throw new FetchError(error.message, error.code);
       });
   },
-  putReading: async (data: PutReadingEntryProps) => {
+  put: async (data: PutReadingEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -75,7 +75,7 @@ export const crudReadings = {
         throw new FetchError(error.message, error.code);
       });
   },
-  deleteReading: async (readingId: string) => {
+  delete: async (readingId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + readingId,

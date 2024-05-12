@@ -18,7 +18,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getAllMyBooks: async (bookshelfId: string) => {
+  getAllMe: async (bookshelfId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookshelfId,
@@ -31,7 +31,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getOneBookById: async (bookshelfId: string, bookId: string) => {
+  getOneById: async (bookshelfId: string, bookId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookshelfId + '/' + bookId,
@@ -44,7 +44,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  postBook: async (data: PostBookEntryProps) => {
+  post: async (data: PostBookEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -60,7 +60,7 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  putBook: async (data: PutBookEntryProps) => {
+  put: async (data: PutBookEntryProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -76,10 +76,10 @@ export const crudBooks = {
         throw new FetchError(error.message, error.code);
       });
   },
-  deleteBook: async (bookshelfId: string, bookId: string) => {
+  delete: async (bookId: string) => {
 
     return await fetchApi({
-      path: basePath + '/' + bookshelfId + '/' + bookId,
+      path: basePath + '/' + bookId,
       method: 'DELETE',
     })
       .catch((error: FetchError) => {

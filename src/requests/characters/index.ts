@@ -4,7 +4,7 @@ import { GetCharacterResProps, PostCharacterProps, PutCharacterProps } from './t
 const basePath = '/api/v1/books/book/';
 
 export const crudBookCharacter = {
-  getAllMyCharacters: async () => {
+  getAllMe: async () => {
 
     return await fetchApi({
       path: basePath,
@@ -17,7 +17,7 @@ export const crudBookCharacter = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getAllBookCharacters: async (bookId: string) => {
+  getAllByBook: async (bookId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookId,
@@ -30,7 +30,7 @@ export const crudBookCharacter = {
         throw new FetchError(error.message, error.code);
       });
   },
-  getOneCharacterById: async (bookId: string, characterId: string) => {
+  getOneById: async (bookId: string, characterId: string) => {
 
     return await fetchApi({
       path: basePath + '/' + bookId + '/' + characterId,
@@ -43,7 +43,7 @@ export const crudBookCharacter = {
         throw new FetchError(error.message, error.code);
       });
   },
-  postBook: async (data: PostCharacterProps) => {
+  post: async (data: PostCharacterProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -59,7 +59,7 @@ export const crudBookCharacter = {
         throw new FetchError(error.message, error.code);
       });
   },
-  putBook: async (data: PutCharacterProps) => {
+  put: async (data: PutCharacterProps) => {
 
     return await fetchApi({
       path: basePath,
@@ -75,10 +75,10 @@ export const crudBookCharacter = {
         throw new FetchError(error.message, error.code);
       });
   },
-  deleteBook: async (bookshelfId: string, bookId: string) => {
+  delete: async (bookId: string, characterId: string) => {
 
     return await fetchApi({
-      path: basePath + '/' + bookshelfId + '/' + bookId,
+      path: basePath + '/' + bookId + '/' + characterId,
       method: 'DELETE',
     })
       .catch((error: FetchError) => {
