@@ -28,6 +28,7 @@ Criar uma estante virtual para auxiliar no gerenciamento de leituras, com funcio
 - Criação da aplicação Fetch para gerenciar requisições.
 - Desenvolvimento de todos os requests com tipagem.
 - Início da configuração do API Route do Next.js para requisições Server Side.
+- Criação das rotas no modelo API Route através de pastas e arquivos route.ts
 
 ## O que falta fazer
 

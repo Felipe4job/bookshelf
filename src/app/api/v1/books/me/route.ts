@@ -1,5 +1,7 @@
 export function GET (req: Request) {
 
+  // Fazer o processo para pegar o user através do token da requisição
+
   const url = new URL(req.url);
   
   if(url.searchParams.has('bookshelfId')) {
