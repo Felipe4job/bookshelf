@@ -1,5 +1,3 @@
-'use client';
-
 import { ModalDefault } from '@/components/basic/modals/modal';
 import { createContext, useContext, useState } from 'react';
 

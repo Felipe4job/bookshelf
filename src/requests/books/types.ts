@@ -18,7 +18,7 @@ interface VolumeInfo {
   authors?: string[];
   canonicalVolumeLink?: string;
   categories: string[];
-  contentVersion: string;
+  contentVersion?: string;
   description?: string;
   imageLinks?: {
     smallThumbnail: string;

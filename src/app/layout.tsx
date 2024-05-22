@@ -21,8 +21,10 @@ export default function RootLayout ({
           <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300;400&display=swap" rel="stylesheet" />
           <title>EST - Minha Estante</title>
         </head>
+        <body>
+          {children}
+        </body>
       </html>
-      {children}
     </>
   );
 }

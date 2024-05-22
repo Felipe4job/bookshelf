@@ -1,21 +1,22 @@
-export function GET (req: Request) { 
+type Params = {
+  id: string
+}
 
-  const url = new URL(req.url);
-  const uuid = url.pathname.match(/\/book\/(.*)/);
-  
+export function GET (context: { params: Params }) { 
+
+  const uuid = context.params.id;
   if(uuid) {
-    console.log(uuid[1]);
-    return Response.json({ Msg: 'Id enviado: ' + uuid[1] }, { status: 200 });
+    console.log(uuid);
+    return Response.json({ Msg: 'Id enviado: ' + uuid }, { status: 200 });
   }else return Response.json({ Msg: 'Book Id not sent' }, { status: 400 });
 }
 
-export function DELETE (req: Request) {
+export function DELETE (context: { params: Params }) {
 
-  const url = new URL(req.url);
-  const uuid = url.pathname.match(/\/book\/(.*)/);
+  const uuid = context.params.id;
   
   if(uuid) {
-    console.log(uuid[1]);
+    console.log(uuid);
     return Response.json({ status: 204 });
   }else return Response.json({ Msg: 'Bookshelf Id not sent' }, { status: 400 });
 }
