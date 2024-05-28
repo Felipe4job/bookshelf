@@ -1,8 +1,8 @@
-import { Document, Schema, model } from 'mongoose';
-import { Base } from './Base.model';
+import { Schema, model, models } from 'mongoose';
+import { base, IBase } from './Base.model';
 import { BookshelfModel } from './Bookshelf.model';
 
-export interface IBook extends Document {
+export interface IBook extends IBase {
   bookshelfId: any;
   volumeInfo: {
     authors?: string[];
@@ -110,6 +110,6 @@ const bookSchema = new Schema<IBook>({
   }
 });
 
-bookSchema.add(Base);
+bookSchema.add(base);
 
-export const BookModel = model<IBook>('Book', bookSchema);
+export const BookModel = models.User || model('Book', bookSchema);

@@ -1,9 +1,9 @@
-import { Document, Model, Schema, model } from 'mongoose';
+import { Model, Schema, model, models } from 'mongoose';
 import { BookModel, IBook } from './Book.model';
 import { randomUUID } from 'crypto';
-import { Base } from './Base.model';
+import { base, IBase } from './Base.model';
 
-interface IReading extends Document {
+interface IReading extends IBase {
   bookId: Model<IBook>;
   startPage: number;
   lastPage?: number;
@@ -45,6 +45,6 @@ const readingSchema = new Schema<IReading>({
   durationSc: { type: Number, required: true },
 });
 
-readingSchema.add(Base);
+readingSchema.add(base);
 
-export const ReadingModel = model<IReading>('Reading', readingSchema);
+export const ReadingModel = models.Reading || model('Reading', readingSchema);

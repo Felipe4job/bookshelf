@@ -1,14 +1,21 @@
 import { Schema, Document } from 'mongoose';
 
-interface IBase extends Document {
+export interface IBase extends Document {
   active: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
-export const Base = new Schema<IBase>(
+export const base = new Schema<IBase>(
   {
     active: {
       type: Boolean,
       default: true,
+      index: true
+    },
+    deletedAt: {
+      type: Date
     }
   },
   {

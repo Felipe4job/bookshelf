@@ -1,9 +1,9 @@
-import { Document, Model, Schema, model } from 'mongoose';
+import { Model, Schema, model, models } from 'mongoose';
 import { BookModel, IBook } from './Book.model';
 import { randomUUID } from 'crypto';
-import { Base } from './Base.model';
+import { base, IBase } from './Base.model';
 
-interface ICharacter extends Document {
+interface ICharacter extends IBase {
   bookId: Model<IBook>;
   name: string;
   image?: string;
@@ -124,7 +124,7 @@ const characterSchema = new Schema<ICharacter>({
   }
 });
 
-characterSchema.add(Base);
+characterSchema.add(base);
 
-export const characterModel = model<ICharacter>('Character', characterSchema);
+export const CharacterModel = models.Character || model('Character', characterSchema);
 

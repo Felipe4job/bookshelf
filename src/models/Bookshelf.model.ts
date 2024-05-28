@@ -1,7 +1,7 @@
-import { Document, Schema, model } from 'mongoose';
-import { Base } from './Base.model';
+import { Schema, model, models } from 'mongoose';
+import { base, IBase } from './Base.model';
 
-interface IBookshelf extends Document {
+interface IBookshelf extends IBase {
   title: string;
   description?: string;
 }
@@ -11,6 +11,6 @@ const bookshelfSchema = new Schema<IBookshelf>({
   description: { type: String }
 });
 
-bookshelfSchema.add(Base);
+bookshelfSchema.add(base);
 
-export const BookshelfModel = model<IBookshelf>('Bookshelf', bookshelfSchema);
+export const BookshelfModel = models.Bookshelf || model('Bookshelf', bookshelfSchema);

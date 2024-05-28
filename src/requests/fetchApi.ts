@@ -27,17 +27,28 @@ export class FetchError extends Error {
 
 // };
 
-export default async function fetchApi (props: fetchApiProps) {
+export default async function fetchApi ({ method, path, gooleBooks, options }: fetchApiProps) {
   let domain = '';
 
-  if(props.gooleBooks)
+  if(gooleBooks)
     domain = 'https://www.googleapis.com';
 
   let status = 0;
   let data = '';
 
+  const requestOptions: any = {
+    method
+  };
+
+  if(options && options.body) {
+    requestOptions.headers = {
+      'Content-Type': 'application/json'
+    };
+    requestOptions.body = options.body;
+  }
+
   await new Promise((resolve) => {
-    fetch(domain + props.path)
+    fetch(domain + path, requestOptions)
       .then((res) => res.json())
       .then(
         (result) => {        

@@ -32,7 +32,7 @@ export const CommentsNew = () => {
       <div className='mb-4'>
         {text}
       </div>
-      <div className='mb-10 max-h-96 overflow-y-scroll'>
+      <div className='mb-10 max-h-96 overflow-y-auto'>
         <Forms.commentNew />
       </div>
     </div>

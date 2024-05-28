@@ -54,6 +54,9 @@ export const Profile = () => {
               <LinkEst href='#' className='mb-2 px-2'>Desejos</LinkEst>
             </div>
             <div role='menuitem' className='flex flex-col text-base text-gray'>
+              <LinkEst href='/admin' className='mb-2 px-2'>Admin</LinkEst>
+            </div>
+            <div role='menuitem' className='flex flex-col text-base text-gray'>
               <LinkEst href='#' className='px-2'>Sair</LinkEst>
             </div>
           </div>

@@ -1,8 +1,8 @@
-import { Model, Schema, model } from 'mongoose';
+import { Model, Schema, model, models } from 'mongoose';
 import { BookModel, IBook } from './Book.model';
-import { Base } from './Base.model';
+import { base, IBase } from './Base.model';
 
-export interface IReview extends Document{
+export interface IReview extends IBase{
   bookId: Model<IBook>;
   text: string;
 }
@@ -16,6 +16,6 @@ const reviewSchema = new Schema<IReview>({
   text: { type: String, required: true }
 });
 
-reviewSchema.add(Base);
+reviewSchema.add(base);
 
-export const ReviewModel = model<IReview>('Review', reviewSchema);
+export const ReviewModel = models.Review || model('Review', reviewSchema);
