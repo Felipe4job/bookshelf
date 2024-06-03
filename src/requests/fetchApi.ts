@@ -3,9 +3,12 @@ interface fetchApiProps {
   options?: {
     body?: any;
     header?: any;
+    next?: {
+      tags: string[]
+    };
   };
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  gooleBooks?: boolean;  
+  gooleBooks?: boolean; 
 }
 
 export interface FetchApiResponse {
@@ -23,46 +26,47 @@ export class FetchError extends Error {
   }
 }
 
-// const handleFetch = async () => {
-
-// };
 
 export default async function fetchApi ({ method, path, gooleBooks, options }: fetchApiProps) {
-  let domain = '';
+  let domain = 'http://localhost:3000';
 
   if(gooleBooks)
     domain = 'https://www.googleapis.com';
 
   let status = 0;
   let data = '';
+  let code = '';
 
   const requestOptions: any = {
     method
   };
 
-  if(options && options.body) {
-    requestOptions.headers = {
-      'Content-Type': 'application/json'
-    };
-    requestOptions.body = options.body;
+  if(options) {
+    if(options.body) {
+      requestOptions.headers = {
+        'Content-Type': 'application/json'
+      };
+      requestOptions.body = options.body;
+    }
+
+    if(options.next)
+      requestOptions.next = options.next;
   }
 
   await new Promise((resolve) => {
     fetch(domain + path, requestOptions)
-      .then((res) => res.json())
+      .then((res) => {
+        status = res.status;
+        return res.json();
+      })
       .then(
         (result) => {        
           resolve(result);
 
           if(result.error) {
-            data = result.error.message;
-            status = result.error.code;
-
-            throw new Error();
-          }else{
-            data = result;
-            status = 200;
-          }
+            data = result.error;
+            code = result.code;
+          } else data = result;
         },
         (error) => {
           data = error.message;
@@ -73,7 +77,7 @@ export default async function fetchApi ({ method, path, gooleBooks, options }: f
   });
 
   if(status >= 400)
-    throw new FetchError(data, status.toString());
-
+    throw new FetchError(data, code + ' / ' + status.toString());
+  
   return { data, status } as FetchApiResponse;
 }

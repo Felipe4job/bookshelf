@@ -1,6 +1,7 @@
 import { Schema, Document } from 'mongoose';
 
 export interface IBase extends Document {
+  _id?: string;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;

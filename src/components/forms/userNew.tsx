@@ -2,7 +2,8 @@ import { useForm } from 'react-hook-form';
 import { InputEst } from '../basic/inputs';
 import { ButtonEst } from '../basic/buttons';
 import { PostUserEntryProps } from '@/requests/users/types';
-import { requests } from '@/requests';
+import { reqUserServer } from '@/libs/reqUseServer';
+import { userPost } from '@/requests/users';
 
 export const UserNewForm = () => {
   const { handleSubmit, register, formState: { errors } } = useForm();
@@ -17,7 +18,9 @@ export const UserNewForm = () => {
       phone: data.phone
     };
 
-    await requests.user.post(dataUser);
+    const result = await reqUserServer(userPost, dataUser);
+
+    console.log('O resultado aqui no client: ', result);
   };
   
   return (

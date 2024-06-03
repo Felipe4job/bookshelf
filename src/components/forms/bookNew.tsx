@@ -2,9 +2,9 @@
 
 import { useForm } from 'react-hook-form';
 import { InputEst } from '../basic/inputs';
-import { requests } from '@/requests';
 import { GetGoogleBooksResProps } from '@/requests/books/types';
 import { IoSearchCircle } from 'react-icons/io5';
+import { crudBooks } from '@/requests/books';
 
 interface BookNewFormProps {
   setBooks: (books: GetGoogleBooksResProps[]) => void;
@@ -16,7 +16,7 @@ export const BookNewForm = (props: BookNewFormProps) => {
   const onSubmit = async (data: any) => {
     console.log('submeteu', data);
 
-    await requests.books.getGoogleBooks(data.bookTitle)
+    await crudBooks.getGoogleBooks(data.bookTitle)
       .then((data) => {
         props.setBooks(data);
       })
