@@ -1,5 +1,5 @@
 import { errorHandler } from '@/helpers/server/errorHandler';
-import { Error, Model, UpdateQuery } from 'mongoose';
+import { Model, UpdateQuery } from 'mongoose';
 
 
 export default class BaseService <M, I> {
@@ -88,7 +88,11 @@ export default class BaseService <M, I> {
       throw errorHandler(
         {
           msg: message,
-          code: 'Bad Request'
+          code: 
+            error.errorResponse.code === 11000 ? 
+              'Validation Mongoose error'
+              :
+              'Bad Request'
         }
       );
     }
@@ -104,10 +108,14 @@ export default class BaseService <M, I> {
         }
       ) as I;
     }catch (error: any) {
-      if(error instanceof Error.ValidationError) {
-        // console.log('mongoose error', error.errors);
-      }
-      throw new Error(error.message);
+      const message = error.message;
+
+      throw errorHandler(
+        {
+          msg: message,
+          code: 'Bad Request'
+        }
+      );
     }
   }
 }

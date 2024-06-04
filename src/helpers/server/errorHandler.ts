@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
 interface errorhandlerProps {
   msg: string;
@@ -38,5 +38,7 @@ export function errorHandler (props: errorhandlerProps) {
     status = 400;
   }
 
-  return NextResponse.json({ error: props.msg, code: props.code }, { status: status });
+  console.log('errorHandler', status, props.code, props.msg);
+
+  throw { error: props.msg, status, code: props.code };
 }

@@ -18,9 +18,10 @@ export const UserNewForm = () => {
       phone: data.phone
     };
 
-    const result = await reqUserServer(userPost, dataUser);
-
-    console.log('O resultado aqui no client: ', result);
+    await reqUserServer(userPost, dataUser)
+      .catch((e:any) => {
+        alert(e.message);
+      });
   };
   
   return (

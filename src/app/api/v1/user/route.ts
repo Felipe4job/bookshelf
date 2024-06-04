@@ -8,7 +8,8 @@ export const POST = execMiddleware(
     const data = await req.json() as unknown as IUser;
     const response = await UserService.create(data);
 
-    return Response.json({ id: response._id }, { status: 200 });   
+    if(response)
+      return Response.json({ id: response._id }, { status: 200 });   
   }
 );
 
@@ -19,7 +20,14 @@ export const PATCH = execMiddleware(
 
     if(data._id) {
       const response = await UserService.update(data._id, data);
-      return Response.json({ id: response._id }, { status: 200 });
+
+      if(response)
+        return Response.json({ id: response._id }, { status: 200 });
+      else errorHandler({
+        msg: 'Usuário não encontrado #' + data._id,
+        code: 'Not Found'
+      });
+
     }else return errorHandler({
       msg: 'ID do usuário não enviado',
       code: 'Id not send'
@@ -34,7 +42,10 @@ export const DELETE = execMiddleware(
 
     if(data._id) {
       const response = await UserService.update(data._id, data);
-      return Response.json({ id: response.deletedAt }, { status: 200 });
+        
+      if(response)
+        return Response.json({ deletedAt: response.deletedAt }, { status: 200 });
+
     }else return errorHandler({
       msg: 'ID do usuário não enviado',
       code: 'Id not send'

@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { connect } from './db';
 
 export const execMiddleware = (...middleware: any[]) => async (req: Request, context: any) => {
@@ -21,10 +22,13 @@ export const execMiddleware = (...middleware: any[]) => async (req: Request, con
       if(!nextInvoked) break;
     }
   }catch(e: any) {
-    console.log(e);
+    if(e.code)
+      return NextResponse.json(e, { status: e.status });
+
+    return NextResponse.json(e.message, { status: 500 });
   }
 
   if (result) {
     return result;    
-  }else throw new Error('Your handler or middleware must return a NextResponse!');   
+  }else return NextResponse.json('Your handler or middleware must return a NextResponse!', { status: 500 }); 
 };

@@ -8,7 +8,7 @@ export const connect = (async () => {
   try {
     _connection = await  mongoose.connect(process.env.MONGO_STRING || '');
 
-    console.log('MongoDB conectado com sucesso!');
+    console.info('MongoDB conectado com sucesso!');
     return _connection;
 
   }catch(error:any) {

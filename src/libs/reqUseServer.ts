@@ -10,8 +10,8 @@ export async function reqUserServer<I, R> (func: reqUserServerType<I, R>, params
       console.info('Result: ', result);
       resolve(result);
     }catch(e: any) {
-      console.error('erro na req: ', e.message, e.code);
-      reject(e.json());
+      console.error('erro na req: ', e.code);
+      reject(new Error(e.message));
     }
   });
 }
