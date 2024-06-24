@@ -69,7 +69,7 @@ export const NumberType = (props: NumberProps) => {
       <ErrorMessage
         errors={props.errors}
         name={props.name}
-        render={({ message })=> <p className='pl-4 text-xs italic text-redLight'>{ message }</p> }
+        render={({ message })=> <p className='error-message'>{ message }</p> }
       />
     </>
   );

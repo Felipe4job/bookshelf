@@ -6,6 +6,7 @@ import { BsApple } from 'react-icons/bs';
 
 export default function Login () {
   const onSubmit = (data:any) => {
+    // lembrar de verificar se a senha está igual a sua confirmação
     console.log(data);
   };
 
@@ -27,7 +28,6 @@ export default function Login () {
               title: 'Email',
               placeholder: 'EMAIL',
               rules: { required: 'O campo EMAIL é obrigatório' },
-              type: 'email'
             },
             {
               id: 'passLogin',
@@ -35,7 +35,6 @@ export default function Login () {
               title: 'Password',
               placeholder: 'SENHA',
               rules: { required: 'O campo SENHA é obrigatório' },
-              type: 'password'
             } 
           ]
         }

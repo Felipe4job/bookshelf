@@ -30,12 +30,12 @@ export const TextArea = (props:TextAreaProps) => {
           value={props.value}
           {...props.register(props.name, props.rules)}
         />
-        <ErrorMessage
-          errors={props.errors}
-          name={props.name}
-          render={({ message })=> <p className='pl-4 text-xs italic text-redLight'>{ message }</p> }
-        />
       </div>
+      <ErrorMessage
+        errors={props.errors}
+        name={props.name}
+        render={({ message })=> <p className='error-message'>{ message }</p> }
+      />
     </>
   );
 };

@@ -37,39 +37,34 @@ export default function Register () {
                   message: 'O campo precisa ter no máximo 50 caracteres.'
                 } 
               },
-              type: 'text'
             },
             {
               id: 'emailRegister',
               name: 'email',
               title: 'Email',
               placeholder: 'EMAIL',
-              rules: { required: 'O campo EMAIL é obrigatório' },
-              type: 'email'
+              rules: { required: 'O campo EMAIL é obrigatório' }
             },
             {
               id: 'repeatEmailRegister',
               name: 'repeatEmail',
               title: 'Email',
               placeholder: 'CONFIRMAR EMAIL',
-              rules: { required: 'O campo CONFIRMAR EMAIL é obrigatório' },
-              type: 'email'
+              rules: { required: 'O campo CONFIRMAR EMAIL é obrigatório' }
             },
             {
               id: 'passRegister',
               name: 'pass',
               title: 'Password',
               placeholder: 'CRIAR SENHA',
-              rules: { required: 'O campo CRIAR SENHA é obrigatório' },
-              type: 'password'
+              rules: { required: 'O campo CRIAR SENHA é obrigatório' }
             },
             {
               id: 'repeatPassRegister',
-              name: 'repeatPass',
-              title: 'Password',
+              name: 'confirmPass',
+              title: 'ConfirmPass',
               placeholder: 'CONFIRMAR SENHA',
-              rules: { required: 'O campo CONFIRMAR SENHA é obrigatório' },
-              type: 'password'
+              rules: { required: 'O campo CONFIRMAR SENHA é obrigatório' }
             }
           ]
         }

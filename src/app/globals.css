@@ -70,6 +70,10 @@ body {
   @apply hover:bg-grayLight hover:text-grayDark
 }
 
+.error-message {
+  @apply -mt-2 pb-6 pl-4 text-xs italic text-redLight
+}
+
 h1 {
   @apply text-2xl;
   font-family: 'Londrina Solid';

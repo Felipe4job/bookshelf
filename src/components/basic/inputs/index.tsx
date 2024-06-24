@@ -1,6 +1,7 @@
 import { DateType } from './date';
 import { FileType } from './file';
 import { NumberType } from './number';
+import { PasswordType } from './pass';
 import { TextArea } from './textArea';
 import { TextOrEmailType } from './textEmail';
 
@@ -10,5 +11,6 @@ export const InputEst = {
   textOrEmail: TextOrEmailType,
   date: DateType,
   textArea: TextArea,
-  file: FileType
+  file: FileType,
+  pass: PasswordType
 };
