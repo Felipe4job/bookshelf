@@ -59,14 +59,13 @@ export default class BaseService <M, I> {
     }catch (error: any) {
       const message = error.message;
 
+      console.log('@@@@@@@@@@', error);
+
       throw errorHandler(
         {
           msg: message,
           code: 
-            error.errorResponse.code === 11000 ? 
-              'Validation Mongoose error'
-              :
-              'Bad Request'
+            'Bad Request'
         }
       );
     }
@@ -89,10 +88,7 @@ export default class BaseService <M, I> {
         {
           msg: message,
           code: 
-            error.errorResponse.code === 11000 ? 
-              'Validation Mongoose error'
-              :
-              'Bad Request'
+            'Bad Request'
         }
       );
     }

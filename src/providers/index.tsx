@@ -1,5 +1,7 @@
+import ProvidersAuth from './providersAuth';
 import { ProvidersAuthenticated } from './providersAuthenticated';
 
 export const Providers = {
-  authenticated: ProvidersAuthenticated
+  authenticated: ProvidersAuthenticated,
+  auth: ProvidersAuth
 };

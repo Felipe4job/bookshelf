@@ -3,12 +3,30 @@
 import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
+import { PostUserEntryProps } from '@/requests/users/types';
+import { reqUserServer } from '@/libs/reqUseServer';
+import { userPost } from '@/requests/users';
+import { useRouter } from 'next/navigation';
 
 
 export default function Register () {
-  const onSubmit = (data:any) => {
-    console.log(data);
-  };
+  const router = useRouter();
+
+  async function onSubmit (data:any) {
+    const dataUser: PostUserEntryProps = {
+      name: data.name,
+      email: data.email,
+      password: data.pass,
+      userName: data.userName,
+      phone: data.phone
+    };
+
+    await reqUserServer(userPost, dataUser)
+      .then(() => router.push('/login'))
+      .catch((e:any) => {
+        alert(e.message);
+      });
+  }
 
   return (
     <>
@@ -36,6 +54,23 @@ export default function Register () {
                   value: 50, 
                   message: 'O campo precisa ter no máximo 50 caracteres.'
                 } 
+              },
+            },
+            {
+              id: 'userNameRegister',
+              name: 'userName',
+              title: 'UserName',
+              placeholder: 'NOME DE USUÁRIO',
+              rules: { 
+                required: 'O campo NOME DE USUÁRIO é obrigatório',
+                minLength: {
+                  value: 3, 
+                  message: 'O campo precisa ter no mínimo 3 caracteres.'
+                }, 
+                maxLength: {
+                  value: 50, 
+                  message: 'O campo precisa ter no máximo 50 caracteres.'
+                },
               },
             },
             {

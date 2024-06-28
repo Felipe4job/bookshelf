@@ -4,8 +4,7 @@ interface errorhandlerProps {
   msg: string;
   code: 
     'Id not send' | 
-    'Not Found' | 
-    'Validation Mongoose error' |
+    'Not Found' |
     'Request Entity Too Large' |
     'Unsupported Media Type' |
     'Unauthorized' |
@@ -21,9 +20,6 @@ export function errorHandler (props: errorhandlerProps) {
     break;
   case 'Not Found':
     status = 404;
-    break;
-  case 'Validation Mongoose error':
-    status = 400;
     break;
   case 'Request Entity Too Large':
     status = 413;

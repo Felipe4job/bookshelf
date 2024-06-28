@@ -6,18 +6,13 @@ import { FieldErrorsImpl } from 'react-hook-form';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
 interface inputsPassInterface extends React.InputHTMLAttributes<HTMLInputElement>  {
-  id: string;
   name: 'pass' | 'confirmPass' | 'login';
-  title: string;
   register: any;
   errors: FieldErrorsImpl;
   setError: any;
   setValue: any;
-  watch: any; 
-  placeholder: string;
-  style?: any;
+  watch: any;
   marginBot?: string;
-  className?: string;
 }
 
 export const PasswordType = (props:inputsPassInterface) => {
@@ -28,42 +23,49 @@ export const PasswordType = (props:inputsPassInterface) => {
     props.register('confirmPass');
   }, [ props, props.register ]);
 
-  function handlePass (e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
+  function handlePass (e: React.ChangeEvent<HTMLInputElement> | string) {
+    const value = typeof e != 'string' ? e.target.value : e;
 
-    // retirar espaços em branco
-    props.setValue('pass', value.trim());
+    if(props.name === 'login') return;
 
-    const verification = /^(?=.*\d)(?=.*[a-z])([^\s]){6,10}$/gm.test(value);    
-    
-    // Tendo uma mudança no valor do password zerar o valor do confirm
-    props.setError('confirmPass', {});
-    props.setValue('confirmPass', '');
+    if(props.name === 'pass') {
+      // retirar espaços em branco
+      props.setValue('pass', value.trim());
 
-    if(!verification)
-      props.setError(
-        'pass',
-        {
-          type: 'custom',
-          message: 'A senha deve ter entre 6 e 10 dígitos e ao menos uma letra e um número'
-        }
-      );
-    else props.setError('pass', {});
-  }
+      const verification = /^(?=.*\d)(?=.*[a-z])([^\s]){6,10}$/gm.test(value);    
+      
+      // Tendo uma mudança no valor do password zerar o valor do confirm
+      if(typeof e != 'string') {
+        props.setError('confirmPass', {});
+        props.setValue('confirmPass', '');
+      }
 
-  function handleConfirmPass (e: React.ChangeEvent<HTMLInputElement>) {
-    const passValue = props.watch('pass', '');
-    const confirmPassValue = e.target.value;
+      if(!verification) {
+        props.setError(
+          'pass',
+          {
+            type: 'custom',
+            message: 'A senha deve ter entre 6 e 10 dígitos e ao menos uma letra e um número'
+          }
+        );
+        return 'A senha deve ter entre 6 e 10 dígitos e ao menos uma letra e um número';
+      } else props.setError('pass', {});
 
-    if(passValue !== confirmPassValue)
-      props.setError(
-        'confirmPass',
-        {
-          type: 'manual',
-          message: 'A confirmação não está igual a senha digitada'
-        }
-      );
-    else props.setError('confirmPass', {});
+    } else if(props.name === 'confirmPass') {
+      const passValue = props.watch('pass', '');
+
+      if(passValue !== value) {
+        props.setError(
+          'confirmPass',
+          {
+            type: 'manual',
+            message: 'A confirmação não está igual a senha digitada'
+          }
+        );
+
+        return 'A confirmação não está igual a senha digitada';
+      }else props.setError('confirmPass', {});
+    }    
   }
 
   return(
@@ -79,11 +81,8 @@ export const PasswordType = (props:inputsPassInterface) => {
             props.name, 
             {
               required: 'O campo é obrigatório',
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) => props.name === 'login' ? () =>{} : props.name === 'pass' ? handlePass(e) : handleConfirmPass(e),
-              pattern: {
-                value: /^(?=.*\d)(?=.*[a-z])([^\s]){6,10}$/gm,
-                message: 'A senha deve ter entre 6 e 10 dígitos e ao menos uma letra e um número'
-              }  
+              onChange: (e: React.ChangeEvent<HTMLInputElement>) => handlePass(e),
+              validate: handlePass  
             }
           )}
         />
