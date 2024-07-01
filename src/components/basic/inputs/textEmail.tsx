@@ -4,7 +4,6 @@ import { FieldErrorsImpl } from 'react-hook-form';
 interface inputsInterface  {
   id: string;
   name: string;
-  title: string;
   register: any;
   errors: FieldErrorsImpl;
   type: 'text' | 'email';

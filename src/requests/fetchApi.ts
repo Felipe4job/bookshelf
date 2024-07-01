@@ -2,7 +2,7 @@ interface fetchApiProps {
   path: string;
   options?: {
     body?: any;
-    header?: any;
+    headers?: any;
     next?: {
       tags: string[]
     };
@@ -42,12 +42,14 @@ export default async function fetchApi ({ method, path, gooleBooks, options }: f
   };
 
   if(options) {
-    if(options.body) {
-      requestOptions.headers = {
-        'Content-Type': 'application/json'
-      };
-      requestOptions.body = options.body;
-    }
+
+    if(options.headers)
+      requestOptions.headers = options.headers;
+    else if(options.body) requestOptions.headers = {
+      'Content-Type': 'application/json'
+    };
+
+    requestOptions.body = options.body;
 
     if(options.next)
       requestOptions.next = options.next;

@@ -2,7 +2,7 @@
 
 type reqUserServerType<I, R> = (param: I) => Promise<R>;
 
-export async function reqUserServer<I, R> (func: reqUserServerType<I, R>, params: I): Promise<R> {
+export async function reqUseServer<I, R> (func: reqUserServerType<I, R>, params: I): Promise<R> {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try{      

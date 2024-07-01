@@ -3,11 +3,28 @@
 import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function Login () {
-  const onSubmit = (data:any) => {
-    // lembrar de verificar se a senha está igual a sua confirmação
-    console.log(data);
+  const router = useRouter();
+
+  const onSubmit = async (data:any) => {
+    const { emailOrUser, password } = data;
+
+    await signIn('credentials', {
+      emailOrUser, 
+      password,
+      redirect: false 
+    })
+      .then((response: any) => {
+        console.log(response);
+        // router.push('/bookshelf');
+      })
+      .catch((e) => {
+        alert(e);
+        router.push('/login&error');
+      });
   };
 
 
@@ -24,15 +41,13 @@ export default function Login () {
           [ 
             {
               id: 'emailUserLogin',
-              name: 'email',
-              title: 'Email',
+              name: 'emailOrUser',
               placeholder: 'EMAIL',
               rules: { required: 'O campo EMAIL é obrigatório' },
             },
             {
               id: 'passLogin',
-              name: 'pass',
-              title: 'Password',
+              name: 'password',
               placeholder: 'SENHA',
               rules: { required: 'O campo SENHA é obrigatório' },
             } 

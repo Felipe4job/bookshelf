@@ -1,34 +1,37 @@
 'use client';
 
 import { ErrorMessage } from '@hookform/error-message';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FieldErrorsImpl } from 'react-hook-form';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
 interface inputsPassInterface extends React.InputHTMLAttributes<HTMLInputElement>  {
-  name: 'pass' | 'confirmPass' | 'login';
+  name: 'password' | 'confirmPass';
   register: any;
   errors: FieldErrorsImpl;
   setError: any;
   setValue: any;
   watch: any;
   marginBot?: string;
+  login?: boolean;
 }
 
 export const PasswordType = (props:inputsPassInterface) => {
   const [ viewPass, setViewPass ] = useState (false);
 
   useEffect(() => {
-    props.register('pass');
-    props.register('confirmPass');
+    if(!props.login) {
+      props.register('pass');
+      props.register('confirmPass');
+    }
   }, [ props, props.register ]);
 
   function handlePass (e: React.ChangeEvent<HTMLInputElement> | string) {
     const value = typeof e != 'string' ? e.target.value : e;
 
-    if(props.name === 'login') return;
+    if(props.login) return;
 
-    if(props.name === 'pass') {
+    if(props.name === 'password') {
       // retirar espaços em branco
       props.setValue('pass', value.trim());
 

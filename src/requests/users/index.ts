@@ -89,3 +89,23 @@ export async function userDelete (userId: string) {
       throw new FetchError(error.message, error.code);
     });
 }
+
+export async function userGetVerifyPass ({ emailOrUser, password }:{ emailOrUser: string, password: string }) {
+  const base64Credentials = Buffer.from(`${emailOrUser}:${password}`).toString('base64');
+
+  return await fetchApi({
+    path: basePathOne + '/login',
+    method: 'GET',
+    options:{
+      headers: {
+        'Authorization': `Basic ${base64Credentials}`
+      },
+    }
+  })
+    .then((res: FetchApiResponse) => {
+      return res.data as GetUserResProps;
+    })
+    .catch((error: FetchError) => {
+      throw new FetchError(error.message, error.code);
+    });
+}

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { InputEst } from '../basic/inputs';
 import { ButtonEst } from '../basic/buttons';
 import { PostUserEntryProps } from '@/requests/users/types';
-import { reqUserServer } from '@/libs/reqUseServer';
+import { reqUseServer } from '@/libs/reqUseServer';
 import { userPost } from '@/requests/users';
 
 export const UserNewForm = () => {
@@ -18,7 +18,7 @@ export const UserNewForm = () => {
       phone: data.phone
     };
 
-    await reqUserServer(userPost, dataUser)
+    await reqUseServer(userPost, dataUser)
       .catch((e:any) => {
         alert(e.message);
       });

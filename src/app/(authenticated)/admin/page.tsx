@@ -1,11 +1,11 @@
 import { UserNew } from '@/components/basic/modals/contents/userNew';
 import { TableEst } from '@/components/basic/table';
 import { Template } from '@/components/layout/template';
-import { reqUserServer } from '@/libs/reqUseServer';
+import { reqUseServer } from '@/libs/reqUseServer';
 import { userGetAll } from '@/requests/users';
 
 async function getUsers () {
-  const result = await reqUserServer(userGetAll, '');
+  const result = await reqUseServer(userGetAll, '');
 
   const data: string[][] = [];
 

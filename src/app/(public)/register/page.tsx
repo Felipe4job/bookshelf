@@ -3,8 +3,7 @@
 import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
-import { PostUserEntryProps } from '@/requests/users/types';
-import { reqUserServer } from '@/libs/reqUseServer';
+import { reqUseServer } from '@/libs/reqUseServer';
 import { userPost } from '@/requests/users';
 import { useRouter } from 'next/navigation';
 
@@ -13,15 +12,9 @@ export default function Register () {
   const router = useRouter();
 
   async function onSubmit (data:any) {
-    const dataUser: PostUserEntryProps = {
-      name: data.name,
-      email: data.email,
-      password: data.pass,
-      userName: data.userName,
-      phone: data.phone
-    };
+    const { name, email, password, userName } = data;
 
-    await reqUserServer(userPost, dataUser)
+    await reqUseServer(userPost, { name, email, password, userName })
       .then(() => router.push('/login'))
       .catch((e:any) => {
         alert(e.message);
@@ -42,7 +35,6 @@ export default function Register () {
             {
               id: 'nameRegister',
               name: 'name',
-              title: 'Name',
               placeholder: 'SEU NOME',
               rules: { 
                 required: 'O campo NOME é obrigatório',
@@ -59,7 +51,6 @@ export default function Register () {
             {
               id: 'userNameRegister',
               name: 'userName',
-              title: 'UserName',
               placeholder: 'NOME DE USUÁRIO',
               rules: { 
                 required: 'O campo NOME DE USUÁRIO é obrigatório',
@@ -76,28 +67,18 @@ export default function Register () {
             {
               id: 'emailRegister',
               name: 'email',
-              title: 'Email',
               placeholder: 'EMAIL',
               rules: { required: 'O campo EMAIL é obrigatório' }
             },
             {
-              id: 'repeatEmailRegister',
-              name: 'repeatEmail',
-              title: 'Email',
-              placeholder: 'CONFIRMAR EMAIL',
-              rules: { required: 'O campo CONFIRMAR EMAIL é obrigatório' }
-            },
-            {
               id: 'passRegister',
-              name: 'pass',
-              title: 'Password',
+              name: 'password',
               placeholder: 'CRIAR SENHA',
               rules: { required: 'O campo CRIAR SENHA é obrigatório' }
             },
             {
               id: 'repeatPassRegister',
               name: 'confirmPass',
-              title: 'ConfirmPass',
               placeholder: 'CONFIRMAR SENHA',
               rules: { required: 'O campo CONFIRMAR SENHA é obrigatório' }
             }
