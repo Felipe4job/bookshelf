@@ -24,19 +24,19 @@ const userSchema = new Schema<IUser>({
 });
 
 userSchema.pre('save', async function (this: IUser) {
-  if (!this.isModified('password')) return;
+  if (await this.comparePassword('password' + process.env.PEPPER)) return;
 
   const salt = await bcrypt.genSalt(12);
-  this.password = await bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password + process.env.PEPPER, salt);
 });
 
-userSchema.pre(/^find/, function (this:any) {
-  this.select('-password');
-});
-
+// userSchema.pre('find', function (this:any) {
+//   this.select('-password');
+// });
 
 userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
-  return await bcrypt.compare(candidatePassword, this.password);
+  console.log('@#$compare', candidatePassword, '+ ', process.env.PEPPER, '+ ', this);
+  return await bcrypt.compare(candidatePassword + process.env.PEPPER, this.password);
 };
 
 userSchema.add(base);

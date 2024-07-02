@@ -81,6 +81,6 @@ const  authOptions : AuthOptions = {
   }
 };
 
-const  getSession = () => getServerSession (authOptions); 
+const  getSession = async () => await getServerSession (authOptions); 
 
 export { authOptions, getSession };

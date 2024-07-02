@@ -95,7 +95,7 @@ export async function userGetVerifyPass ({ emailOrUser, password }:{ emailOrUser
 
   return await fetchApi({
     path: basePathOne + '/login',
-    method: 'GET',
+    method: 'POST',
     options:{
       headers: {
         'Authorization': `Basic ${base64Credentials}`

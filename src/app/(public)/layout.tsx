@@ -1,7 +1,13 @@
+import { getSession } from '@/libs/auth';
+import { redirect } from 'next/navigation';
 import NextTopLoader from 'nextjs-toploader';
 import React from 'react';
 
-export default function LoginLayout ({ children: children } : { children: React.ReactNode }) {
+export default async function LoginLayout ({ children: children } : { children: React.ReactNode }) {
+  const session = await getSession();
+  
+  if(session) redirect('/bookshelf');
+
   return (
     <>
       <body>

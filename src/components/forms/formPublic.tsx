@@ -29,11 +29,11 @@ export default function FormPublic (params: paramsFormPublic) {
           function rules () {
             const rules: any = field.rules;
 
-            // if(field.name === 'repeatEmail')
-            //   rules.validate = (value: string) => value !== watch('email', '') ? 'Os e-mails não estão iguais' : undefined;
-
             if(field.name === 'userName')
-              rules.onChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue('userName', e.target.value.trim());
+              rules.onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                const value = e.target.value.replace(' ', '').replace(/[^\w.]/g, '');
+                setValue('userName', value);
+              };
 
             return rules;
           }

@@ -1,6 +1,8 @@
+import { errorHandler } from '@/helpers/server/errorHandler';
 import { execMiddleware } from '@/helpers/server/middleware';
+import UserService from '@/services/User.service';
 
-export const GET = execMiddleware(
+export const POST = execMiddleware(
   async (req: Request) => {
     let authorization = req.headers.get('authorization');
 
@@ -9,20 +11,21 @@ export const GET = execMiddleware(
 
       const [ emailOrUser, password ] = Buffer.from(authorization, 'base64').toString('utf-8').split(':');
 
-      console.log(emailOrUser, password);
-    }
+      const user = await UserService.getByEmailOrUser(emailOrUser, password);
 
-    return Response.json({ name: 'felipe', email: 'felipe@felipe' }, { status: 200 });
-  
-    // if(uuid) {
-    //   const response = await UserService.getById(uuid);
-
-    //   if(response)
-    //     return Response.json(response, { status: 200 });
-    //   else errorHandler({
-    //     msg: 'Usuário não encontrado #' + uuid,
-    //     code: 'Not Found'
-    //   });
-    // }else return errorHandler({ msg: 'Id do usuário não enviado', code: 'Id not send' });
+      if(!user)
+        throw errorHandler(
+          {
+            code: 'Not Found',
+            msg: 'Usuário ou senha inválidos'
+          }
+        );
+      else return Response.json({ id: user.id, name: user.name, email: user.email }, { status: 200 });
+    }else errorHandler(
+      {
+        code: 'Bad Request',
+        msg: 'usuário e senha não enviados'
+      }
+    );    
   }  
 );

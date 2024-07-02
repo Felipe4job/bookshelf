@@ -21,7 +21,7 @@ export const PasswordType = (props:inputsPassInterface) => {
 
   useEffect(() => {
     if(!props.login) {
-      props.register('pass');
+      props.register('password');
       props.register('confirmPass');
     }
   }, [ props, props.register ]);
@@ -33,7 +33,7 @@ export const PasswordType = (props:inputsPassInterface) => {
 
     if(props.name === 'password') {
       // retirar espaços em branco
-      props.setValue('pass', value.trim());
+      props.setValue('password', value.replace(' ', ''));
 
       const verification = /^(?=.*\d)(?=.*[a-z])([^\s]){6,10}$/gm.test(value);    
       
@@ -45,17 +45,17 @@ export const PasswordType = (props:inputsPassInterface) => {
 
       if(!verification) {
         props.setError(
-          'pass',
+          'password',
           {
             type: 'custom',
             message: 'A senha deve ter entre 6 e 10 dígitos e ao menos uma letra e um número'
           }
         );
         return 'A senha deve ter entre 6 e 10 dígitos e ao menos uma letra e um número';
-      } else props.setError('pass', {});
+      } else props.setError('password', {});
 
     } else if(props.name === 'confirmPass') {
-      const passValue = props.watch('pass', '');
+      const passValue = props.watch('password', '');
 
       if(passValue !== value) {
         props.setError(

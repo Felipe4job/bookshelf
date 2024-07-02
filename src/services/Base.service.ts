@@ -16,7 +16,7 @@ export default class BaseService <M, I> {
           active: true, 
           deletedAt: null 
         }
-      ) as I[];
+      ).select('-password') as I[];
     }catch (error: any) {
       const message = error.message;
 
@@ -37,7 +37,7 @@ export default class BaseService <M, I> {
             active: true, 
             deletedAt: null 
           }
-        ) as I;
+        ).select('-password') as I;
       
       return response;
 
@@ -59,13 +59,10 @@ export default class BaseService <M, I> {
     }catch (error: any) {
       const message = error.message;
 
-      console.log('@@@@@@@@@@', error);
-
       throw errorHandler(
         {
           msg: message,
-          code: 
-            'Bad Request'
+          code: 'Bad Request'
         }
       );
     }
