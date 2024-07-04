@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { LinkEst } from '../basic/link';
+import { signOut } from 'next-auth/react';
+import { navigate } from '@/helpers/navigate';
 
 export const Profile = () => {
   const [ isOpen, setIsOpen ] = useState(false);
@@ -20,6 +22,14 @@ export const Profile = () => {
       window.removeEventListener('click', handleOutsideClick);
     };
   }, []);
+
+  async function logout () {
+    await signOut({
+      redirect: false
+    });
+
+    navigate('/login');
+  }
 
   return (
     <div className='mb-4 flex h-16 w-full flex-row-reverse'>
@@ -57,7 +67,7 @@ export const Profile = () => {
               <LinkEst href='/admin' className='mb-2 px-2'>Admin</LinkEst>
             </div>
             <div role='menuitem' className='flex flex-col text-base text-gray'>
-              <LinkEst href='#' className='px-2'>Sair</LinkEst>
+              <LinkEst href='#' className='px-2' onClick={logout}>Sair</LinkEst>
             </div>
           </div>
         </nav>

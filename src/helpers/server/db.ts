@@ -2,18 +2,20 @@ import mongoose from 'mongoose';
 
 let _connection:any;
 
-export const connect = (async () => {
-  if(_connection) return _connection;
+export const connect = (
+  async () => {
+    if(_connection) return _connection;
 
-  try {
-    _connection = await  mongoose.connect(process.env.MONGO_STRING || '');
+    try {
+      _connection = await  mongoose.connect(process.env.MONGO_STRING || '');
 
-    console.info('MongoDB conectado com sucesso!');
-    return _connection;
+      console.info('MongoDB conectado com sucesso!');
+      return _connection;
 
-  }catch(error:any) {
-    console.error('Erro ao conectar ao MongoDB:', error.message);
-    throw error;
+    }catch(error:any) {
+      console.error('Erro ao conectar ao MongoDB:', error.message);
+      throw error;
+    }
+
   }
-
-})();
+)();

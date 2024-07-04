@@ -2,7 +2,7 @@ import { errorHandler } from '@/helpers/server/errorHandler';
 import { execMiddleware } from '@/helpers/server/middleware';
 import UserService from '@/services/User.service';
 
-export const POST = execMiddleware(
+export const GET = execMiddleware(
   async (req: Request) => {
     let authorization = req.headers.get('authorization');
 
@@ -20,7 +20,7 @@ export const POST = execMiddleware(
             msg: 'Usuário ou senha inválidos'
           }
         );
-      else return Response.json({ id: user.id, name: user.name, email: user.email }, { status: 200 });
+      else return Response.json({ id: user._id, name: user.name, email: user.email, active: user.active }, { status: 200 });
     }else errorHandler(
       {
         code: 'Bad Request',

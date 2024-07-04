@@ -24,10 +24,8 @@ export default function ForgotPass () {
             {
               id: 'emailUserLogin',
               name: 'email',
-              title: 'Email',
               placeholder: 'EMAIL',
               rules: { required: 'O campo EMAIL é obrigatório' },
-              type: 'email'
             }
           ]
         }

@@ -4,7 +4,7 @@ import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 import { signIn } from 'next-auth/react';
-import { navigate } from '@/helpers/redirect';
+import { navigate } from '@/helpers/navigate';
 
 export default function Login () {
 

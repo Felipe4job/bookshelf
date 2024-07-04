@@ -35,7 +35,6 @@ userSchema.pre('save', async function (this: IUser) {
 // });
 
 userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
-  console.log('@#$compare', candidatePassword, '+ ', process.env.PEPPER, '+ ', this);
   return await bcrypt.compare(candidatePassword + process.env.PEPPER, this.password);
 };
 

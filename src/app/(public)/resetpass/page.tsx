@@ -22,26 +22,20 @@ export default function ResetPass () {
             {
               id: 'emailResetPass',
               name: 'email',
-              title: 'Email',
               placeholder: 'EMAIL',
               rules: { required: 'O campo EMAIL é obrigatório' },
-              type: 'email'
             },
             {
               id: 'passResetPass',
-              name: 'pass',
-              title: 'Password',
+              name: 'password',
               placeholder: 'CRIAR SENHA',
               rules: { required: 'O campo CRIAR SENHA é obrigatório' },
-              type: 'password'
             },
             {
               id: 'repeatPassResetPass',
-              name: 'repeatPass',
-              title: 'Password',
+              name: 'confirmPass',
               placeholder: 'CONFIRMAR SENHA',
-              rules: { required: 'O campo CONFIRMAR SENHA é obrigatório' },
-              type: 'password'
+              rules: { required: 'O campo CONFIRMAR SENHA é obrigatório' }
             }
           ]
         }

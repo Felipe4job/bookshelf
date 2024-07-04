@@ -62,7 +62,6 @@ export const CharacterNew = () => {
       <InputEst.textOrEmail
         id='characterName'
         name='characterName'
-        title='Nome do personagem'
         placeholder='Nome do personagem'
         type='text'
         style={{ fontSize: 'var(--text-base)' }}

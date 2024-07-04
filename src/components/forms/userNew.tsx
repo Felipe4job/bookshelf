@@ -29,7 +29,6 @@ export const UserNewForm = () => {
       <InputEst.textOrEmail
         id='userName'
         name='name'
-        title='Nome completo'
         placeholder='Digite seu nome'
         type='text'
         style={{ fontSize: 'var(--text-base)' }}
@@ -42,7 +41,6 @@ export const UserNewForm = () => {
       <InputEst.textOrEmail
         id='userEmail'
         name='email'
-        title='E-mail'
         placeholder='Digite seu e-mail'
         type='email'
         style={{ fontSize: 'var(--text-base)' }}
@@ -55,7 +53,6 @@ export const UserNewForm = () => {
       <InputEst.textOrEmail
         id='userNick'
         name='userName'
-        title='Nick'
         placeholder='Escolha um nome de usuário'
         type='text'
         style={{ fontSize: 'var(--text-base)' }}
@@ -68,7 +65,6 @@ export const UserNewForm = () => {
       <InputEst.textOrEmail
         id='userPass'
         name='password'
-        title='Senha'
         placeholder='Crie uma senha'
         type='text'
         style={{ fontSize: 'var(--text-base)' }}

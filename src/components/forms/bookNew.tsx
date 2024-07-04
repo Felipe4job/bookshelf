@@ -31,7 +31,6 @@ export const BookNewForm = (props: BookNewFormProps) => {
         <InputEst.textOrEmail
           id='bookTitle'
           name='bookTitle'
-          title='Título do livro'
           placeholder='Título do livro'
           type='text'
           style={{ 
