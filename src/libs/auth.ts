@@ -9,12 +9,16 @@ const jwt = require('jsonwebtoken');
 
 declare module 'next-auth' {
 	interface Session {
-		user: {
-			id: string
-			email: string
-			name: string
-		}
+		user: user;
+    error?: string;
 	}
+}
+
+interface user {
+  id: string;
+  email: string;
+  name: string;
+  active: boolean;
 }
 
 interface redisSession {
@@ -67,60 +71,113 @@ const  authOptions : AuthOptions = {
     })
   ],
   callbacks: {
-    // async signIn ({ user }) {
-    //   // possibilidades de parâmetros user, account, profile, email, credentials
-    //   // o acount retorna {providerAccountId: undefined, type: 'credentials', provider: 'credentials'}
-    //   // profile e email devem ser para autenticação de Oauth
-    //   // Quando dá erro no esse callback não é executado      
-
-    //   const isAllowedToSignIn = true;
-
-    //   if (isAllowedToSignIn) {
-    //     return true;
-    //   } else {
-    //     // Return false to display a default error message
-    //     return false;
-    //     // Or you can return a URL to redirect to:
-    //     // return '/unauthorized'
-    //   }
-    // },
-    async jwt ({ token, account, profile, user }) {
-      // Persist the OAuth access_token to the token right after signin
+    async jwt ({ token, account, user }) {
 
       const redis = await redisConnect;
-      const sessionRedis: redisSession | null = JSON.parse(await redis.get(user.id));
-      let refreshToken = null;
 
-      if(!sessionRedis) {
-        const tokenNew = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '12h' });
-        refreshToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '30m' });
+      // Login
 
-        await redis.set(user.id, JSON.stringify({
-          token: tokenNew,
-          refreshToken: refreshToken,
-          stayConnected: false
-        }));        
-      }
+      if (account && user) {
+        console.info('This is the first login and the user is here together with the account ', user, account);
 
-      if(user)
+        token.accessToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '30m' });
         token.user = user;
 
-      if(refreshToken)
-        token.accessToken = refreshToken;
-
-      if (account) {
-        token.accessToken = account.access_token;
+        await redis.set(user.id, JSON.stringify({
+          token: jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '1m' }),
+          refreshToken: token.accessToken,
+          stayConnected: false
+        }));
       }
+
+      // Subsequents calls
+
+      if(token.accessToken) {
+        const newUser = token.user as user;
+
+        console.info('This is a request that login has already been made ', token);  
+        const sessionRedis: redisSession = await JSON.parse(await redis.get(newUser.id));    
+
+        try {                 
+          if(!sessionRedis) throw new Error('session not found');         
+          if(token.accessToken !== sessionRedis.refreshToken) throw new Error('token sent different than expected');          
+
+          jwt.verify(sessionRedis.token, process.env.SECRET_KEY);
+          
+          try {
+            jwt.verify(token.accessToken, process.env.SECRET_KEY);
+          }catch(e: any) {
+            if (e.name === 'TokenExpiredError') {
+              token.accessToken = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, { expiresIn: '30m' });
+
+              await redis.set(newUser.id, JSON.stringify({
+                token: sessionRedis.token,
+                refreshToken: token.accessToken,
+                stayConnected: sessionRedis.stayConnected
+              }));             
+
+            }else throw new Error('something wrong with accessToken >>> ', e.name);
+          }
+        }catch (error: any) {
+          if (error.name === 'TokenExpiredError') {
+            if(sessionRedis.stayConnected) {
+              token.accessToken = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, { expiresIn: '30m' });
+
+              await redis.set(newUser.id, JSON.stringify({
+                token: jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, { expiresIn: '12h' }),
+                refreshToken: token.accessToken,
+                stayConnected: true
+              }));
+            } else {
+              redis.del(newUser.id, (err: any, response: any) => {
+                if (err) {
+                  console.error('Erro ao apagar a chave:', err);
+                } else if (response === 1) {
+                  console.info(`Chave '${newUser.id}' apagada com sucesso`);
+                } else {
+                  console.info(`Chave '${newUser.id}' não encontrada`);
+                }
+              });
+
+              token.error = 'TokenExpiredError';
+            }
+          }else token.error = error.message;
+        }
+      }
+
+      if (account && account.type !== 'credentials') {
+        token.accessToken = account.access_token;
+        token.account = account;
+      }
+
+      // account: {
+      //   providerAccountId: '668447d7b96b979181d37e3b',
+      //   type: 'credentials',
+      //   provider: 'credentials'
+      // }
+
       return token;
     },
     async session ({ session, token }) {
-      // Send properties to the client, like an access_token from a provider.
       
       if(token)
-        session.user = token.user as any;
+        if (token?.error) {
+          session.error = token.error as string;
+        }else {
+          session.user = token.user as user;
+        }
 
       return session;
     },    
+  },
+  events: {
+    async signOut (message) {
+      const redis = await redisConnect;
+      if (message.token) {
+        const userToken = message.token.user as user;
+        await redis.del(userToken.id);
+      }
+    }
   }
 };
 

@@ -1,10 +1,21 @@
+import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware (request: NextRequest) {
+export async function middleware (request: NextRequest) {
 
   if(request.nextUrl.pathname === '/') {
     return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+
+  if(token && token.error) {
+    const response = NextResponse.redirect(new URL('/login?' + token.error, request.url));
+    
+    response.cookies.delete('next-auth.session-token');
+    response.cookies.delete('next-auth.csrf-token');
+    return response;
   }
   
   return;
