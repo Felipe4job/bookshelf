@@ -5,8 +5,11 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 import { signIn } from 'next-auth/react';
 import { navigate } from '@/helpers/navigate';
+import { useState } from 'react';
 
 export default function Login () {
+
+  const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
 
   const onSubmit = async (data:any) => {
     const { emailOrUser, password } = data;
@@ -18,11 +21,13 @@ export default function Login () {
     })
       .then((response: any) => {
         console.log(response);
-        navigate('/bookshelf');
+
+        if(!response.ok) 
+          setErrorMessage('Login ou senha inválidos');     
+        else navigate('/bookshelf');
       })
-      .catch((e) => {
-        alert(e);
-        navigate('/login?error');
+      .catch((e:any) => {
+        setErrorMessage(e);
       });
   };
 
@@ -55,6 +60,17 @@ export default function Login () {
         submitType='login'
         submit={onSubmit}
       />
+      {
+        errorMessage && 
+        <div className='mt-4 flex w-full items-center justify-center rounded-lg bg-red py-2'>
+          <p 
+            className='text-white'
+            style={{ fontFamily: 'Londrina Solid, sans-serif' }}
+          >
+            {errorMessage}
+          </p>
+        </div>
+      }
       <p 
         className='my-4 text-xl font-light text-black opacity-65'
         style={{ fontFamily: 'Londrina Solid, sans-serif' }}

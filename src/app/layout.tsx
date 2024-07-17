@@ -14,6 +14,7 @@ export default async function RootLayout ({
   children: React.ReactNode;
 }>) {
   const session = await getSession();
+  console.log('session aqui no lay: ', session);
 
   return (
     <>

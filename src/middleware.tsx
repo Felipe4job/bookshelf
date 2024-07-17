@@ -9,17 +9,19 @@ export async function middleware (request: NextRequest) {
   }
 
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  console.log('token no middle: ', token);
 
   if(token && token.error) {
-    const response = NextResponse.redirect(new URL('/login?' + token.error, request.url));
+    console.log(token, token.error);
+    const response = NextResponse.redirect(new URL('/login?error=' + token.error, request.url));
     
     response.cookies.delete('next-auth.session-token');
     response.cookies.delete('next-auth.csrf-token');
     return response;
   }
   
-  return;
-}
+  return NextResponse.next();
+} 
 
 export const config = {
   matcher: [

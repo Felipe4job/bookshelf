@@ -84,7 +84,7 @@ const  authOptions : AuthOptions = {
         token.user = user;
 
         await redis.set(user.id, JSON.stringify({
-          token: jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '1m' }),
+          token: jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '15s' }),
           refreshToken: token.accessToken,
           stayConnected: false
         }));
@@ -96,7 +96,7 @@ const  authOptions : AuthOptions = {
         const newUser = token.user as user;
 
         console.info('This is a request that login has already been made ', token);  
-        const sessionRedis: redisSession = await JSON.parse(await redis.get(newUser.id));    
+        const sessionRedis: redisSession = await JSON.parse(await redis.get(newUser.id));  
 
         try {                 
           if(!sessionRedis) throw new Error('session not found');         
@@ -129,15 +129,7 @@ const  authOptions : AuthOptions = {
                 stayConnected: true
               }));
             } else {
-              redis.del(newUser.id, (err: any, response: any) => {
-                if (err) {
-                  console.error('Erro ao apagar a chave:', err);
-                } else if (response === 1) {
-                  console.info(`Chave '${newUser.id}' apagada com sucesso`);
-                } else {
-                  console.info(`Chave '${newUser.id}' não encontrada`);
-                }
-              });
+              await redis.del(newUser.id);
 
               token.error = 'TokenExpiredError';
             }
@@ -159,6 +151,8 @@ const  authOptions : AuthOptions = {
       return token;
     },
     async session ({ session, token }) {
+
+      console.log('Token na session: ', token);
       
       if(token)
         if (token?.error) {
