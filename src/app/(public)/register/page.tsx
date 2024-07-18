@@ -6,18 +6,24 @@ import { BsApple } from 'react-icons/bs';
 import { reqUseServer } from '@/libs/reqUseServer';
 import { userPost } from '@/requests/users';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 
 export default function Register () {
   const router = useRouter();
 
+  const [ isLoading, setIsLoading ] = useState(false);
+  const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
+
   async function onSubmit (data:any) {
+    setIsLoading(true);
     const { name, email, password, userName } = data;
 
     await reqUseServer(userPost, { name, email, password, userName })
       .then(() => router.push('/login'))
       .catch((e:any) => {
-        alert(e.message);
+        setErrorMessage(e.message);
+        setIsLoading(false);
       });
   }
 
@@ -86,7 +92,19 @@ export default function Register () {
         }
         submitType='register'
         submit={onSubmit}
+        isLoading={isLoading}
       />
+      {
+        errorMessage && 
+        <div className='mt-4 flex w-full items-center justify-center rounded-lg bg-red py-2'>
+          <p 
+            className='text-white'
+            style={{ fontFamily: 'Londrina Solid, sans-serif' }}
+          >
+            {errorMessage}
+          </p>
+        </div>
+      }
       <p 
         className='my-4 text-xl font-light text-black opacity-65'
         style={{ fontFamily: 'Londrina Solid, sans-serif' }}

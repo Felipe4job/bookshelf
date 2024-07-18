@@ -3,11 +3,16 @@
 import FormPublic from '@/components/forms/formPublic';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
+import { useState } from 'react';
 
 
 export default function ForgotPass () {
+  const [ isLoading, setIsLoading ] = useState(false);
+
   const onSubmit = (data:any) => {
+    setIsLoading(true);
     console.log(data);
+    setIsLoading(false);
   };
 
   return (
@@ -31,6 +36,7 @@ export default function ForgotPass () {
         }
         submitType='forgotPass'
         submit={onSubmit}
+        isLoading={isLoading}
       />
       <p 
         className='my-4 text-xl font-light text-black opacity-65'

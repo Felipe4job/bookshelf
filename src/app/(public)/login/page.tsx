@@ -5,13 +5,27 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs';
 import { signIn } from 'next-auth/react';
 import { navigate } from '@/helpers/navigate';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function Login () {
+  const searchParams = useSearchParams();
 
   const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
+  const [ isLoading, setIsLoading ] = useState(false);
+
+  useEffect(() => {
+    const error = searchParams.get('error');
+
+    if(error) {
+      if (error === 'TokenExpiredError')
+        setErrorMessage('Sua sessão expirou, entre novamente.');
+      else setErrorMessage(error);
+    }
+  }, [ searchParams ]);
 
   const onSubmit = async (data:any) => {
+    setIsLoading(true);
     const { emailOrUser, password } = data;
 
     await signIn('credentials', {
@@ -22,12 +36,14 @@ export default function Login () {
       .then((response: any) => {
         console.log(response);
 
-        if(!response.ok) 
-          setErrorMessage('Login ou senha inválidos');     
-        else navigate('/bookshelf');
+        if(!response.ok) {
+          setErrorMessage('Login ou senha inválidos');
+          setIsLoading(false);     
+        } else navigate('/bookshelf');
       })
       .catch((e:any) => {
         setErrorMessage(e);
+        setIsLoading(false);
       });
   };
 
@@ -59,6 +75,7 @@ export default function Login () {
         }
         submitType='login'
         submit={onSubmit}
+        isLoading={isLoading}
       />
       {
         errorMessage && 

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import './globals.css';
 import { Providers } from '@/providers';
 import { getSession } from '@/libs/auth';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +15,9 @@ export default async function RootLayout ({
   children: React.ReactNode;
 }>) {
   const session = await getSession();
-  console.log('session aqui no lay: ', session);
+  
+  if(session?.error) return redirect('/logout?error=' + session.error);
+
 
   return (
     <>

@@ -25,7 +25,7 @@ export const ButtonEst = {
         type={props.type}
         disabled={props.disable}
         onClick={props.onClick}
-        className={`${'text-' + props.textColor} rounded-full px-10 py-2.5 text-sm font-medium hover:font-bold hover:opacity-75`}
+        className={`${'text-' + props.textColor} flex rounded-full px-10 py-2.5 text-sm font-medium ${props.disable ? 'font-bold opacity-75' : ''} hover:font-bold hover:opacity-75`}
         style={{ backgroundColor: props.bgColor }}
       >
         {

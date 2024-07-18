@@ -84,7 +84,7 @@ const  authOptions : AuthOptions = {
         token.user = user;
 
         await redis.set(user.id, JSON.stringify({
-          token: jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '15s' }),
+          token: jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '12h' }),
           refreshToken: token.accessToken,
           stayConnected: false
         }));

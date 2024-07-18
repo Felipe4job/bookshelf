@@ -9,6 +9,7 @@ interface paramsFormPublic {
   fields: fieldsParams[];  
   submitType: 'login' | 'resetPass' | 'register' | 'forgotPass';
   submit: (data: any)=> void;
+  isLoading: boolean;
 }
 
 interface fieldsParams {
@@ -97,6 +98,8 @@ export default function FormPublic (params: paramsFormPublic) {
           bgColor='#404040'
           textColor='white'
           text={ params.submitType === 'login' ? 'ENTRAR' : 'ENVIAR' }
+          disable={params.isLoading}
+          disableText={ params.submitType === 'login' ? 'Entrando...' : 'Aguarde...' }
         />
       </div>
     </form>

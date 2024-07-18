@@ -1,11 +1,16 @@
 'use client';
 
 import FormPublic from '@/components/forms/formPublic';
+import { useState } from 'react';
 
 
 export default function ResetPass () {
+  const [ isLoading, setIsLoading ] = useState(false);
+
   const onSubmit = (data:any) => {
+    setIsLoading(true);
     console.log(data);
+    setIsLoading(false);
   };
 
   return (
@@ -41,6 +46,7 @@ export default function ResetPass () {
         }
         submitType='resetPass'
         submit={onSubmit}
+        isLoading={isLoading}
       />
     </>
   );
