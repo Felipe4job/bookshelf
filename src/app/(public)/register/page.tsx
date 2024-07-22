@@ -19,7 +19,7 @@ export default function Register () {
     setIsLoading(true);
     const { name, email, password, userName } = data;
 
-    await reqUseServer(userPost, { name, email, password, userName })
+    await reqUseServer(userPost, { name, email, password, userName, provider: 'credentials' })
       .then(() => router.push('/login'))
       .catch((e:any) => {
         setErrorMessage(e.message);

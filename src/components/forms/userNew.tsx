@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { InputEst } from '../basic/inputs';
 import { ButtonEst } from '../basic/buttons';
-import { PostUserEntryProps } from '@/requests/users/types';
+
 import { reqUseServer } from '@/libs/reqUseServer';
 import { userPost } from '@/requests/users';
 
@@ -10,15 +10,9 @@ export const UserNewForm = () => {
 
   const onSubmit = async (data: any) => {
 
-    const dataUser: PostUserEntryProps = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      userName: data.userName,
-      phone: data.phone
-    };
+    const { name, email, password, userName } = data;
 
-    await reqUseServer(userPost, dataUser)
+    await reqUseServer(userPost, { name, email, password, userName, provider: 'credentials' })
       .catch((e:any) => {
         alert(e.message);
       });
