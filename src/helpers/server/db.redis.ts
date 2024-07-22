@@ -11,7 +11,7 @@ export const redisConnect = (
 
       if(process.env.NODE_ENV === 'development')
         client = createClient(); 
-      else if(process.env.NODE_ENV === 'test') 
+      else
         client = createClient({
           url: process.env.REDIS_URL,
           password: process.env.REDIS_PASSWORD,
