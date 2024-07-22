@@ -13,9 +13,12 @@ export const redisConnect = (
         client = createClient(); 
       else
         client = createClient({
-          url: process.env.REDIS_URL,
           password: process.env.REDIS_PASSWORD,
-          username: process.env.REDIS_USERNAME
+          username: process.env.REDIS_USERNAME,
+          socket: {
+            host: process.env.REDIS_HOST,
+            port: 10357
+          }
         });
 
       client.on('error', (err: any) => { 
