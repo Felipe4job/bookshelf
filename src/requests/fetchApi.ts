@@ -28,7 +28,7 @@ export class FetchError extends Error {
 
 
 export default async function fetchApi ({ method, path, gooleBooks, options }: fetchApiProps) {
-  let domain = 'http://localhost:3000';
+  let domain = process.env.NEXTAUTH_URL;
 
   if(gooleBooks)
     domain = 'https://www.googleapis.com';
