@@ -3,6 +3,7 @@
 import { revalidateTag } from 'next/cache';
 import fetchApi, { FetchApiResponse, FetchError } from '../fetchApi';
 import { GetUserResProps, PostUserEntryProps, PutUserEntryProps } from './types';
+import { user } from '@/libs/auth';
 
 const basePathOne = '/api/v1/user';
 const basePathAll = '/api/v1/users';
@@ -104,6 +105,30 @@ export async function userGetVerifyPass ({ emailOrUser, password }:{ emailOrUser
   })
     .then((res: FetchApiResponse) => {
       return res.data as GetUserResProps;
+    })
+    .catch((error: FetchError) => {
+      throw new FetchError(error.message, error.code);
+    });
+}
+
+export async function userPostGoogleLogin ({ name, email, photo }: {name: string, email: string, photo: string}) {
+  const data: PostUserEntryProps = {
+    name,
+    email,
+    photo,
+    userName: email.split('@')[0].toLowerCase() + '_google',
+    provider: 'google'
+  };
+
+  return await fetchApi({
+    path: basePathOne + '/login/google',
+    method: 'POST',
+    options: {
+      body: JSON.stringify(data)
+    }
+  })
+    .then((res: FetchApiResponse) => {
+      return res.data as user;
     })
     .catch((error: FetchError) => {
       throw new FetchError(error.message, error.code);

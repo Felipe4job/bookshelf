@@ -6,15 +6,17 @@ export interface GetUserResProps {
   phone?: string;
   photo?: string;
   lastAcess?: Date;
+  provider: 'credentials' | 'google' | 'apple';
 }
 
 export interface PostUserEntryProps {
   name: string;
-  password: string;
+  password?: string;
   userName: string;
   email: string;
   phone?: string;
   photo?: string;
+  provider: 'credentials' | 'google' | 'apple';
 }
 
 export interface PutUserEntryProps {

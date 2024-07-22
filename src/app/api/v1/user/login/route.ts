@@ -11,16 +11,22 @@ export const GET = execMiddleware(
 
       const [ emailOrUser, password ] = Buffer.from(authorization, 'base64').toString('utf-8').split(':');
 
-      const user = await UserService.getByEmailOrUser(emailOrUser, password);
+      const user = await UserService.getByEmailOrUser(emailOrUser);
 
-      if(!user)
-        throw errorHandler(
-          {
-            code: 'Not Found',
-            msg: 'Usuário ou senha inválidos'
-          }
-        );
-      else return Response.json({ id: user._id, name: user.name, email: user.email, active: user.active }, { status: 200 });
+      if(user && await user.comparePassword(password))
+        return Response.json({ 
+          id: user._id, 
+          name: user.name, 
+          email: user.email, 
+          active: user.active,
+          photo: user.photo 
+        }, { status: 200 });
+      else errorHandler(
+        {
+          code: 'Not Found',
+          msg: 'Usuário ou senha inválidos'
+        }
+      );
     }else errorHandler(
       {
         code: 'Bad Request',

@@ -1,6 +1,7 @@
-import { userGetVerifyPass } from '@/requests/users';
+import { userGetVerifyPass, userPostGoogleLogin } from '@/requests/users';
 import { AuthOptions, getServerSession } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import { reqUseServer } from './reqUseServer';
 import { redisConnect } from '@/helpers/server/db.redis';
 
@@ -14,10 +15,11 @@ declare module 'next-auth' {
 	}
 }
 
-interface user {
+export interface user {
   id: string;
   email: string;
   name: string;
+  photo: string;
   active: boolean;
 }
 
@@ -68,6 +70,10 @@ const  authOptions : AuthOptions = {
 
         return user;
       }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
     })
   ],
   callbacks: {
@@ -76,9 +82,15 @@ const  authOptions : AuthOptions = {
       const redis = await redisConnect;
 
       // Login
+      // Definir regras para logins em mais de um navegador, como se comportar.
 
       if (account && user) {
         console.info('This is the first login and the user is here together with the account ', user, account);
+
+        if(account.provider === 'google') {
+          const newUser = await reqUseServer(userPostGoogleLogin, { name: user.name || '', email: user.email || '', photo: user.image || '' });
+          user = newUser;
+        }
 
         token.accessToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '30m' });
         token.user = user;
@@ -99,13 +111,14 @@ const  authOptions : AuthOptions = {
         const sessionRedis: redisSession = await JSON.parse(await redis.get(newUser.id));  
 
         try {                 
-          if(!sessionRedis) throw new Error('session not found');         
+          if(!sessionRedis) throw new Error('session not found');
+
           if(token.accessToken !== sessionRedis.refreshToken) throw new Error('token sent different than expected');          
 
           jwt.verify(sessionRedis.token, process.env.SECRET_KEY);
           
           try {
-            jwt.verify(token.accessToken, process.env.SECRET_KEY);
+            jwt.verify(sessionRedis.refreshToken, process.env.SECRET_KEY);
           }catch(e: any) {
             if (e.name === 'TokenExpiredError') {
               token.accessToken = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, { expiresIn: '30m' });
@@ -116,7 +129,7 @@ const  authOptions : AuthOptions = {
                 stayConnected: sessionRedis.stayConnected
               }));             
 
-            }else throw new Error('something wrong with accessToken >>> ', e.name);
+            }else throw new Error('something wrong with accessToken >>> ', e.message);
           }
         }catch (error: any) {
           if (error.name === 'TokenExpiredError') {
@@ -129,16 +142,15 @@ const  authOptions : AuthOptions = {
                 stayConnected: true
               }));
             } else {
-              await redis.del(newUser.id);
-
               token.error = 'TokenExpiredError';
             }
           }else token.error = error.message;
+
+          await redis.del(newUser.id);
         }
       }
 
       if (account && account.type !== 'credentials') {
-        token.accessToken = account.access_token;
         token.account = account;
       }
 
@@ -151,8 +163,6 @@ const  authOptions : AuthOptions = {
       return token;
     },
     async session ({ session, token }) {
-
-      console.log('Token na session: ', token);
       
       if(token)
         if (token?.error) {

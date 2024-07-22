@@ -7,7 +7,7 @@ class UserService extends BaseService<IUser, IUser> {
     super(UserModel);
   }
 
-  async getByEmailOrUser (emailOrUser: string, password: string): Promise<IUser | null> {
+  async getByEmailOrUser (emailOrUser: string): Promise<IUser | null> {
     
     try{
       const user: IUser = await UserModel.findOne({
@@ -17,9 +17,7 @@ class UserService extends BaseService<IUser, IUser> {
         ]
       }).exec();
 
-      console.log('resultado da consulta aqui ', user);
-
-      if (user && await user.comparePassword(password))
+      if (user)
         return user;
       else return null;      
       

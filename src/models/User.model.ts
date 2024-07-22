@@ -4,9 +4,10 @@ import { IBase, base } from './Base.model';
 
 export interface IUser extends IBase {
   name: string;
-  password: string;
+  password?: string;
   userName: string;
   email: string;
+  provider: 'credentials' | 'google' | 'apple';
   phone?: string;
   photo?: string;
   lastAcess?: Date;
@@ -15,19 +16,23 @@ export interface IUser extends IBase {
 
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String },
   userName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String },
   photo: { type: String },
+  provider: { type: String, required: true, default: 'credentials' },
   lastAcess: { type: Date },
 });
 
 userSchema.pre('save', async function (this: IUser) {
-  if (await this.comparePassword('password' + process.env.PEPPER)) return;
-
-  const salt = await bcrypt.genSalt(12);
-  this.password = await bcrypt.hash(this.password + process.env.PEPPER, salt);
+  if(this.password) {
+    if (await this.comparePassword(this.password + process.env.PEPPER)) return;
+    else {
+      const salt = await bcrypt.genSalt(12);
+      this.password = await bcrypt.hash(this.password + process.env.PEPPER, salt);
+    }
+  }  
 });
 
 // userSchema.pre('find', function (this:any) {

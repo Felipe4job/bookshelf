@@ -20,6 +20,8 @@ export default function Login () {
     if(error) {
       if (error === 'TokenExpiredError')
         setErrorMessage('Sua sessão expirou, entre novamente.');
+      else if(error === 'Callback')
+        setErrorMessage('Algo deu errado com sua sessão no google'); 
       else setErrorMessage(error);
     }
   }, [ searchParams ]);
@@ -94,7 +96,10 @@ export default function Login () {
       >
         OU
       </p>
-      <div className='mb-4 flex w-full cursor-pointer items-center rounded-full bg-white py-2 pl-10 hover:scale-x-105'>
+      <div 
+        className='mb-4 flex w-full cursor-pointer items-center rounded-full bg-white py-2 pl-10 hover:scale-x-105'
+        onClick={() => signIn('google', { redirect: false })}
+      >
         <FcGoogle size={35}/>
         <p 
           className='ml-8 text-sm text-black opacity-65'

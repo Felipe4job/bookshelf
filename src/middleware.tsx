@@ -1,4 +1,3 @@
-import { getToken } from 'next-auth/jwt';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
@@ -17,16 +16,6 @@ export async function middleware (request: NextRequest) {
     response.cookies.delete('next-auth.csrf-token');
     
     return response; 
-  }
-
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
-
-  if(token && token.error) {
-    const response = NextResponse.redirect(new URL('/login?error=' + token.error, request.url));
-    
-    response.cookies.delete('next-auth.session-token');
-    response.cookies.delete('next-auth.csrf-token');
-    return response;
   }
   
   return NextResponse.next();
