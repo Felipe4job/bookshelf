@@ -11,10 +11,12 @@ export const redisConnect = (
 
       if(process.env.NODE_ENV === 'development')
         client = createClient(); 
-      else client = createClient({
-        url: process.env.REDIS_URL,
-        password: process.env.REDIS_PASSWORD
-      });
+      else if(process.env.NODE_ENV === 'test') 
+        client = createClient({
+          url: process.env.REDIS_URL,
+          password: process.env.REDIS_PASSWORD,
+          username: process.env.REDIS_USERNAME
+        });
 
       client.on('error', (err: any) => { 
         console.error('Redis Client Error', err);
