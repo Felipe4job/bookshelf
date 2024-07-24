@@ -81,7 +81,7 @@ export default function BookDescription ({ params }:{ params:ParamsProps }) {
         breadcrumbItems={[
           { text: 'Página principal', link: null },
           { text: 'Livros', link: '/bookshelf/books' },
-          { text: 'Sua Descrição', link: null }
+          { text: 'Sua descrição', link: null }
         ]} 
       />
       <div className='mb-8'>
