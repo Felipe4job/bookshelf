@@ -15,11 +15,8 @@ export default async function RootLayout ({
   children: React.ReactNode;
 }>) {
   const session = await getSession();
-
-  // A session é {user: type user}
   
   if(session?.error) return redirect('/logout?error=' + session.error);
-
 
   return (
     <>

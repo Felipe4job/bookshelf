@@ -1,18 +1,23 @@
 import { ModalDefault } from '@/components/basic/modals/modal';
+import { user } from '@/libs/auth';
 import { createContext, useContext, useState } from 'react';
 
 interface GlobalContextProps {
   handleModal: (active: boolean, modal?: any) => void;
+  handleMyProfile: (user: user) => void;
+  myProfile: user | undefined;
 }
 
 export const GlobalContext = createContext<GlobalContextProps>({} as GlobalContextProps);
 
 export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 
+  // Ativa e carregar conteúdo de modais
+  
   const [ activeModal, setActiveModal ] = useState(false);
   const [ { modal }, setModal ] = useState<any>({ modal: undefined });
 
-  const handleModal = (active: boolean, modal: any) => {
+  function handleModal (active: boolean, modal: any) {
     
     if(active) {
       setModal({ modal: modal });
@@ -21,12 +26,22 @@ export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     setActiveModal(active);
-  };
+  }
+
+  // Carregar informações do usuário logado
+
+  const [ myProfile, setMyProfile ] = useState<user | undefined>();
+
+  function handleMyProfile (user: user) {
+    setMyProfile(user);
+  }
 
   return (
     <GlobalContext.Provider
       value={{
-        handleModal
+        handleModal,
+        handleMyProfile,
+        myProfile
       }} 
     >
       {

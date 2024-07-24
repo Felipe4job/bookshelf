@@ -11,11 +11,11 @@ export interface TemplateProps {
       'Página principal' |
       'Livros' |
       'Desejos' |
-      'Sua Descrição' |
+      'Sua descrição' |
       'Resenhas' |
       'Personagens' |
       'Leituras' |
-      'Perfil',
+      'Meu perfil',
     link: string | null
   }[],
   button?: {
