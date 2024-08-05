@@ -1,5 +1,6 @@
 import { errorHandler } from '@/helpers/server/errorHandler';
 import { execMiddleware } from '@/helpers/server/middleware';
+import { user } from '@/libs/auth';
 import { IUser } from '@/models/User.model';
 import UserService from '@/services/User.service';
 
@@ -14,12 +15,12 @@ export const POST = execMiddleware(
 );
 
 export const PATCH = execMiddleware(
-  async (req: Request) => {
+  async (req: Request, currentUser: user) => {
 
     const data = await req.json() as unknown as IUser;
 
-    if(data._id) {
-      const response = await UserService.update(data._id, data);
+    if(currentUser.id) {
+      const response = await UserService.update(currentUser.id, data);
 
       if(response)
         return Response.json({ id: response._id }, { status: 200 });

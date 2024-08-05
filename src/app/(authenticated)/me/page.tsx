@@ -1,4 +1,4 @@
-import { Profile } from '@/components/basic/profile';
+import { EditProfile } from '@/components/basic/editProfile';
 import { Template } from '@/components/layout/template';
 
 export default function Me () {
@@ -13,7 +13,7 @@ export default function Me () {
           ] 
         }
       />
-      <Profile />
+      <EditProfile />
     </div>
   );
 }

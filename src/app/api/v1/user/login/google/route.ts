@@ -15,7 +15,9 @@ export const POST = execMiddleware(
       name: userRes.name, 
       email: userRes.email, 
       active: userRes.active, 
-      photo: userRes.photo 
+      photo: userRes.photo,
+      provider: userRes.provider,
+      userName: userRes.userName 
     }, { status: 200 });
   }    
 );

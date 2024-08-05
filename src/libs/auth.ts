@@ -21,6 +21,8 @@ export interface user {
   name: string;
   photo: string;
   active: boolean;
+  provider: 'credentials' | 'google' | 'apple';
+  userName: string;
 }
 
 interface redisSession {

@@ -1,3 +1,7 @@
+'use server';
+
+import { getSession } from '@/libs/auth';
+
 interface fetchApiProps {
   path: string;
   options?: {
@@ -8,7 +12,8 @@ interface fetchApiProps {
     };
   };
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  gooleBooks?: boolean; 
+  gooleBooks?: boolean;
+  publicRequest?: boolean; 
 }
 
 export interface FetchApiResponse {
@@ -17,17 +22,23 @@ export interface FetchApiResponse {
   data: any;
 }
 
-export class FetchError extends Error {
-  code?: string;
-  constructor (message: string, code?: string) {
-    super();
-    this.message = message;
-    this.code = code;
+export async function FetchError ({ message, code }:{ message: string, code: string }) {
+  throw { message, code };
+}
+
+async function getSessionToken () {
+  const session = await getSession();
+  console.log('session aqui', session);
+  if (session) {
+    return session;
   }
+  return null;
 }
 
 
 export default async function fetchApi ({ method, path, gooleBooks, options }: fetchApiProps) {
+
+  getSessionToken();
   let domain = process.env.NEXTAUTH_URL;
 
   if(gooleBooks)
@@ -73,13 +84,13 @@ export default async function fetchApi ({ method, path, gooleBooks, options }: f
         (error) => {
           data = error.message;
           status = 500;
-          throw new FetchError(data, status.toString());
+          throw FetchError({ message: data, code });
         }
       );
   });
 
   if(status >= 400)
-    throw new FetchError(data, code + ' / ' + status.toString());
+    throw FetchError({ message: data, code: code + ' / ' + status.toString() });
   
   return { data, status } as FetchApiResponse;
 }

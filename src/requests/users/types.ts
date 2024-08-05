@@ -26,4 +26,5 @@ export interface PutUserEntryProps {
   email?: string;
   phone?: string;
   photo?: string;
+  provider?: 'credentials' | 'google' | 'apple'; 
 }

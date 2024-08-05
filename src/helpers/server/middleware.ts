@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { connect } from './db';
 
-export const execMiddleware = (...middleware: any[]) => async (req: Request, context: any) => {
+export const execMiddleware = (...middleware: any[]) => async (req: NextRequest, context: any) => {
   try{
     await connect;
 

@@ -6,7 +6,7 @@ import { FieldErrorsImpl } from 'react-hook-form';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
 interface inputsPassInterface extends React.InputHTMLAttributes<HTMLInputElement>  {
-  name: 'password' | 'confirmPass';
+  name: 'password' | 'confirmPass' | 'actualPass';
   register: any;
   errors: FieldErrorsImpl;
   setError: any;

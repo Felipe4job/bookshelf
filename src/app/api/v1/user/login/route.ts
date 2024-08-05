@@ -19,7 +19,9 @@ export const GET = execMiddleware(
           name: user.name, 
           email: user.email, 
           active: user.active,
-          photo: user.photo 
+          photo: user.photo,
+          provider: user.provider,
+          userName: user.userName 
         }, { status: 200 });
       else errorHandler(
         {
